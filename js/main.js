@@ -57,9 +57,11 @@
   function addRevealClasses() {
     var selectors = [
       '.about-text', '.about-visual',
-      '.problem-card', '.service-card',
-      '.step-card', '.industry-item',
-      '.support-price-card', '.support-feature',
+      '.friction-card', '.eco-brand', '.eco-transition',
+      '.product-card', '.service-card',
+      '.step-card', '.industry-card',
+      '.support-text', '.support-price-card',
+      '.advantage-content', '.advantage-point',
       '.cta-content', '.cta-form-wrap',
       '.section-center'
     ];
