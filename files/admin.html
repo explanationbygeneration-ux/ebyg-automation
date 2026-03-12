@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit Admin — EBYG Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1929;
+  --navy2: #0F2240;
+  --blue: #2563EB;
+  --blue-pale: #EFF6FF;
+  --blue-light: #93C5FD;
+  --gold: #D97706;
+  --gold-light: #FEF3C7;
+  --green: #059669;
+  --green-light: #D1FAE5;
+  --red: #DC2626;
+  --red-light: #FEE2E2;
+  --orange: #EA580C;
+  --orange-light: #FFF7ED;
+  --slate: #475569;
+  --slate-light: #94A3B8;
+  --border: rgba(0,0,0,0.07);
+  --bg: #F8FAFC;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--sans);background:var(--bg);color:#1E293B;min-height:100vh}
+
+/* LOGIN */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--navy)}
+.login-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:2rem;width:100%;max-width:360px;text-align:center}
+.login-logo{font-size:13px;font-weight:500;color:var(--blue-light);margin-bottom:1.5rem;letter-spacing:0.05em}
+.login-title{font-size:22px;font-weight:500;color:#fff;margin-bottom:0.5rem}
+.login-sub{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:1.5rem}
+.login-input{width:100%;padding:11px 14px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;font-family:var(--mono);font-size:14px;color:#fff;outline:none;margin-bottom:10px;transition:border-color 0.15s}
+.login-input:focus{border-color:var(--blue)}
+.login-btn{width:100%;padding:11px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;transition:opacity 0.15s}
+.login-btn:hover{opacity:0.9}
+.login-err{font-size:12px;color:#FCA5A5;margin-top:8px;min-height:18px}
+
+/* TOPBAR */
+#admin-screen{display:none}
+.topbar{height:54px;background:var(--navy);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;border-bottom:1px solid rgba(255,255,255,0.05);position:sticky;top:0;z-index:100}
+.topbar-brand{font-size:13px;font-weight:500;color:#fff}
+.topbar-brand span{color:var(--blue-light)}
+.topbar-divider{width:1px;height:18px;background:rgba(255,255,255,0.1)}
+.topbar-section{font-size:12px;color:rgba(255,255,255,0.4)}
+.topbar-sp{flex:1}
+.topbar-logout{font-size:12px;color:rgba(255,255,255,0.3);cursor:pointer;transition:color 0.15s}
+.topbar-logout:hover{color:rgba(255,255,255,0.7)}
+.topbar-refresh{display:flex;align-items:center;gap:5px;padding:6px 12px;border:1px solid rgba(255,255,255,0.15);border-radius:7px;font-size:12px;color:rgba(255,255,255,0.5);cursor:pointer;background:transparent;font-family:var(--sans);transition:all 0.15s}
+.topbar-refresh:hover{border-color:var(--blue-light);color:var(--blue-light)}
+
+/* LAYOUT */
+.page{padding:1.5rem;max-width:1100px;margin:0 auto}
+
+/* STAT CARDS */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.stat-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem 1.25rem}
+.stat-label{font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:var(--slate-light);margin-bottom:6px}
+.stat-val{font-size:26px;font-weight:500;color:var(--navy)}
+.stat-val.flagged{color:var(--red)}
+.stat-val.active{color:var(--green)}
+.stat-sub{font-size:12px;color:var(--slate-light);margin-top:3px}
+
+/* CONTROLS */
+.controls{display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap}
+.search-inp{flex:1;min-width:200px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:13px;color:#1E293B;background:#fff;outline:none;transition:border-color 0.15s}
+.search-inp:focus{border-color:var(--blue)}
+.filter-chip{padding:6px 12px;border:1px solid var(--border);border-radius:100px;font-size:12px;cursor:pointer;background:#fff;color:var(--slate);transition:all 0.15s;font-family:var(--sans)}
+.filter-chip:hover{border-color:var(--blue);color:var(--blue)}
+.filter-chip.on{border-color:var(--blue);background:var(--blue-pale);color:var(--blue);font-weight:500}
+.filter-chip.flagged-chip.on{border-color:var(--red);background:var(--red-light);color:var(--red)}
+
+/* TABLE */
+.table-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.table-head-row{display:grid;grid-template-columns:220px 160px 80px 80px 80px 90px 100px 120px;background:var(--navy2);padding:10px 16px;gap:8px}
+.th{font-size:11px;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;color:rgba(255,255,255,0.5);cursor:pointer;user-select:none;transition:color 0.15s;white-space:nowrap}
+.th:hover{color:#fff}
+.th.sorted{color:var(--blue-light)}
+
+.trow{display:grid;grid-template-columns:220px 160px 80px 80px 80px 90px 100px 120px;padding:10px 16px;gap:8px;border-bottom:1px solid #F8FAFC;align-items:center;transition:background 0.1s;cursor:pointer}
+.trow:last-child{border-bottom:none}
+.trow:hover{background:#FAFCFF}
+.trow.flagged-row{background:#FFF5F5}
+.trow.flagged-row:hover{background:#FEE2E2}
+
+.td{font-size:13px;color:#1E293B;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.td.mono{font-family:var(--mono);font-size:12px;color:var(--navy)}
+.td.muted{color:var(--slate-light);font-size:12px}
+.td.green{color:var(--green);font-weight:500}
+.td.red{color:var(--red);font-weight:500}
+.td.gold{color:var(--gold);font-weight:500}
+
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:100px;font-size:11px;font-weight:500}
+.badge.ok{background:var(--green-light);color:var(--green)}
+.badge.warn{background:var(--orange-light);color:var(--orange)}
+.badge.alert{background:var(--red-light);color:var(--red)}
+.badge.revoked{background:#F1F5F9;color:var(--slate-light)}
+
+/* DETAIL PANEL */
+.detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;align-items:center;justify-content:center;padding:1rem}
+.detail-overlay.open{display:flex}
+.detail-panel{background:#fff;border-radius:16px;width:100%;max-width:520px;max-height:85vh;overflow-y:auto}
+.detail-head{padding:1.25rem 1.5rem;border-bottom:1px solid #F1F5F9;display:flex;align-items:center;justify-content:space-between}
+.detail-key{font-family:var(--mono);font-size:14px;font-weight:500;color:var(--navy)}
+.detail-close{font-size:20px;color:var(--slate-light);cursor:pointer;line-height:1;padding:4px 8px;border-radius:6px;transition:background 0.15s}
+.detail-close:hover{background:#F1F5F9}
+.detail-body{padding:1.25rem 1.5rem}
+.detail-row{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid #F8FAFC;font-size:13px}
+.detail-row:last-child{border-bottom:none}
+.detail-lbl{color:var(--slate-light);flex-shrink:0;min-width:140px}
+.detail-val{color:#1E293B;text-align:right;word-break:break-all}
+.detail-actions{padding:1rem 1.5rem;border-top:1px solid #F1F5F9;display:flex;gap:8px}
+.action-btn{padding:8px 14px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--slate);font-family:var(--sans);transition:all 0.15s}
+.action-btn:hover{border-color:var(--blue);color:var(--blue)}
+.action-btn.danger{border-color:rgba(220,38,38,0.3);color:var(--red)}
+.action-btn.danger:hover{background:var(--red-light)}
+
+.empty-state{padding:3rem;text-align:center;color:var(--slate-light);font-size:14px}
+.loading-row{padding:2rem;text-align:center;color:var(--slate-light);font-size:13px}
+
+/* Spinner */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){
+  .stat-row{grid-template-columns:repeat(2,1fr)}
+  .table-head-row,.trow{grid-template-columns:180px 140px 70px 70px 80px}
+  .th:nth-child(n+6),.td:nth-child(n+6){display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">EBYG AUTOMATION</div>
+    <div class="login-title">Admin Dashboard</div>
+    <div class="login-sub">Kit license key monitoring</div>
+    <input class="login-input" id="admin-pass" type="password" placeholder="Admin password" onkeydown="if(event.key==='Enter')adminLogin()">
+    <input class="login-input" id="supa-url" type="text" placeholder="Supabase project URL" style="margin-top:4px">
+    <input class="login-input" id="supa-key" type="text" placeholder="Supabase service role key" style="margin-top:4px">
+    <button class="login-btn" onclick="adminLogin()">Sign in</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- ADMIN APP -->
+<div id="admin-screen">
+  <div class="topbar">
+    <span class="topbar-brand">EBYG <span>Automation</span></span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-section">License Monitor</span>
+    <div class="topbar-sp"></div>
+    <button class="topbar-refresh" onclick="loadData()">&#8635; Refresh</button>
+    <span class="topbar-logout" onclick="adminLogout()">Sign out</span>
+  </div>
+
+  <div class="page">
+    <!-- Stats -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-label">Total keys sold</div>
+        <div class="stat-val" id="stat-total">—</div>
+        <div class="stat-sub">All time</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active (used in 30d)</div>
+        <div class="stat-val active" id="stat-active">—</div>
+        <div class="stat-sub">Unique buyers using kit</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Sessions this month</div>
+        <div class="stat-val" id="stat-sessions">—</div>
+        <div class="stat-sub">Total kit opens</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Flagged for review</div>
+        <div class="stat-val flagged" id="stat-flagged">—</div>
+        <div class="stat-sub">20+ sessions / 30 days</div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <input class="search-inp" id="search" placeholder="Search by email, name, or key..." oninput="renderTable()">
+      <div class="filter-chip on" data-filter="all" onclick="setFilter(this)">All keys</div>
+      <div class="filter-chip flagged-chip" data-filter="flagged" onclick="setFilter(this)">&#9873; Flagged</div>
+      <div class="filter-chip" data-filter="active" onclick="setFilter(this)">Active</div>
+      <div class="filter-chip" data-filter="unused" onclick="setFilter(this)">Never used</div>
+      <div class="filter-chip" data-filter="revoked" onclick="setFilter(this)">Revoked</div>
+    </div>
+    <div id="row-count" style="font-size:12px;color:var(--slate-light);margin-bottom:0.6rem"></div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <div class="table-head-row">
+        <div class="th sorted" onclick="sortBy('key')">Key</div>
+        <div class="th" onclick="sortBy('email')">Customer</div>
+        <div class="th" onclick="sortBy('sessions_30d')">30d uses</div>
+        <div class="th" onclick="sortBy('total')">Total</div>
+        <div class="th" onclick="sortBy('devices')">Devices</div>
+        <div class="th" onclick="sortBy('status')">Status</div>
+        <div class="th" onclick="sortBy('last_seen')">Last seen</div>
+        <div class="th" onclick="sortBy('created')">Sold</div>
+      </div>
+      <div id="table-body"><div class="loading-row">Loading...</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL PANEL -->
+<div class="detail-overlay" id="detail-overlay" onclick="closeDetail(event)">
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-head">
+      <span class="detail-key" id="det-key"></span>
+      <span class="detail-close" onclick="closeDetail()">&#10005;</span>
+    </div>
+    <div class="detail-body" id="det-body"></div>
+    <div class="detail-actions" id="det-actions"></div>
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ─────────────────────────────────────────────────
+const ADMIN_PASS_HASH_KEY = 'ebyg_admin_ph';
+const SUPA_URL_KEY = 'ebyg_supa_url';
+const SUPA_KEY_KEY = 'ebyg_supa_key';
+// Simple admin password check (store a bcrypt hash in production)
+const ADMIN_PASSWORD = 'ebyg-admin-2024'; // CHANGE THIS
+
+let supabaseUrl = '', supabaseKey = '';
+let allData = [];
+let sortCol = 'sessions_30d', sortDir = -1, activeFilter = 'all';
+
+// ─── LOGIN ──────────────────────────────────────────────────
+function adminLogin() {
+  const pass = document.getElementById('admin-pass').value;
+  const url = document.getElementById('supa-url').value.trim();
+  const key = document.getElementById('supa-key').value.trim();
+  if(pass !== ADMIN_PASSWORD) {
+    document.getElementById('login-err').textContent = 'Incorrect password.';
+    return;
+  }
+  if(!url || !key) {
+    document.getElementById('login-err').textContent = 'Supabase URL and key required.';
+    return;
+  }
+  supabaseUrl = url;
+  supabaseKey = key;
+  sessionStorage.setItem(SUPA_URL_KEY, url);
+  sessionStorage.setItem(SUPA_KEY_KEY, key);
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-screen').style.display = 'block';
+  loadData();
+}
+
+function adminLogout() {
+  sessionStorage.clear();
+  location.reload();
+}
+
+// Restore session
+window.addEventListener('load', () => {
+  const url = sessionStorage.getItem(SUPA_URL_KEY);
+  const key = sessionStorage.getItem(SUPA_KEY_KEY);
+  if(url && key) {
+    supabaseUrl = url; supabaseKey = key;
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-screen').style.display = 'block';
+    loadData();
+  }
+});
+
+// ─── DATA LOADING ────────────────────────────────────────────
+async function loadData() {
+  document.getElementById('table-body').innerHTML = '<div class="loading-row">Loading data...</div>';
+  try {
+    const res = await fetch(`${supabaseUrl}/rest/v1/key_usage_summary?select=*`, {
+      headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}` }
+    });
+    if(!res.ok) throw new Error(await res.text());
+    allData = await res.json();
+    updateStats();
+    renderTable();
+  } catch(e) {
+    document.getElementById('table-body').innerHTML = `<div class="loading-row" style="color:var(--red)">Error loading data: ${e.message}</div>`;
+  }
+}
+
+function updateStats() {
+  document.getElementById('stat-total').textContent = allData.length;
+  document.getElementById('stat-active').textContent = allData.filter(k => k.sessions_30d > 0).length;
+  document.getElementById('stat-sessions').textContent = allData.reduce((s,k) => s + (k.sessions_30d||0), 0);
+  document.getElementById('stat-flagged').textContent = allData.filter(k => k.flagged).length;
+}
+
+function setFilter(el) {
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  activeFilter = el.dataset.filter;
+  renderTable();
+}
+
+function sortBy(col) {
+  if(sortCol === col) sortDir *= -1;
+  else { sortCol = col; sortDir = -1; }
+  document.querySelectorAll('.th').forEach(t => t.classList.remove('sorted'));
+  renderTable();
+}
+
+function renderTable() {
+  const search = document.getElementById('search').value.toLowerCase();
+  let rows = [...allData];
+
+  // Filter
+  if(activeFilter === 'flagged') rows = rows.filter(r => r.flagged && !r.revoked);
+  else if(activeFilter === 'active') rows = rows.filter(r => (r.sessions_30d||0) > 0 && !r.revoked);
+  else if(activeFilter === 'unused') rows = rows.filter(r => !r.total_sessions && !r.revoked);
+  else if(activeFilter === 'revoked') rows = rows.filter(r => r.revoked);
+
+  // Search
+  if(search) rows = rows.filter(r =>
+    (r.key||'').toLowerCase().includes(search) ||
+    (r.customer_email||'').toLowerCase().includes(search) ||
+    (r.customer_name||'').toLowerCase().includes(search)
+  );
+
+  // Sort
+  rows.sort((a,b) => {
+    let av, bv;
+    if(sortCol==='key') {av=a.key||''; bv=b.key||'';}
+    else if(sortCol==='email') {av=a.customer_email||''; bv=b.customer_email||'';}
+    else if(sortCol==='sessions_30d') {av=a.sessions_30d||0; bv=b.sessions_30d||0;}
+    else if(sortCol==='total') {av=a.total_sessions||0; bv=b.total_sessions||0;}
+    else if(sortCol==='devices') {av=a.unique_devices||0; bv=b.unique_devices||0;}
+    else if(sortCol==='last_seen') {av=a.last_seen||''; bv=b.last_seen||'';}
+    else if(sortCol==='created') {av=a.key_created||''; bv=b.key_created||'';}
+    else {av=0; bv=0;}
+    if(typeof av === 'string') return av.localeCompare(bv) * sortDir;
+    return (av - bv) * sortDir;
+  });
+
+  document.getElementById('row-count').textContent = rows.length + ' key' + (rows.length!==1?'s':'') + ' shown';
+
+  if(!rows.length) {
+    document.getElementById('table-body').innerHTML = '<div class="empty-state">No keys match your filters.</div>';
+    return;
+  }
+
+  const body = document.getElementById('table-body');
+  body.innerHTML = '';
+  rows.forEach(r => {
+    const row = document.createElement('div');
+    row.className = 'trow' + (r.flagged && !r.revoked ? ' flagged-row' : '');
+    row.onclick = () => openDetail(r);
+
+    const s30 = r.sessions_30d || 0;
+    const s30Class = s30 >= 20 ? 'red' : s30 >= 10 ? 'gold' : 'green';
+    const badgeClass = r.revoked ? 'revoked' : r.flagged ? 'alert' : s30 > 0 ? 'ok' : 'warn';
+    const badgeText = r.revoked ? 'Revoked' : r.flagged ? '⚑ Flagged' : s30 > 0 ? 'Active' : 'Unused';
+
+    row.innerHTML = `
+      <div class="td mono">${r.key}</div>
+      <div class="td">${r.customer_email ? `<div style="font-size:13px">${r.customer_email}</div><div style="font-size:11px;color:var(--slate-light)">${r.customer_name||''}</div>` : '<span class="muted">—</span>'}</div>
+      <div class="td ${s30Class}">${s30}</div>
+      <div class="td">${r.total_sessions||0}</div>
+      <div class="td">${r.unique_devices||0}</div>
+      <div class="td"><span class="badge ${badgeClass}">${badgeText}</span></div>
+      <div class="td muted">${r.last_seen ? relativeTime(r.last_seen) : '—'}</div>
+      <div class="td muted">${r.key_created ? formatDate(r.key_created) : '—'}</div>
+    `;
+    body.appendChild(row);
+  });
+}
+
+// ─── DETAIL PANEL ────────────────────────────────────────────
+function openDetail(r) {
+  document.getElementById('det-key').textContent = r.key;
+  const body = document.getElementById('det-body');
+  body.innerHTML = [
+    ['Customer email', r.customer_email || '—'],
+    ['Customer name', r.customer_name || '—'],
+    ['Product', r.product || 'ai-starter-kit'],
+    ['Key sold', r.key_created ? formatDate(r.key_created) : '—'],
+    ['Total sessions', r.total_sessions || 0],
+    ['Sessions (30 days)', r.sessions_30d || 0],
+    ['Sessions (7 days)', r.sessions_7d || 0],
+    ['Unique devices', r.unique_devices || 0],
+    ['Unique countries', r.unique_countries || 0],
+    ['Last seen', r.last_seen ? new Date(r.last_seen).toLocaleString() : '—'],
+    ['Status', r.revoked ? 'Revoked' : r.flagged ? '⚑ Flagged — '+r.flag_reason : 'Active'],
+  ].map(([l,v]) => `<div class="detail-row"><span class="detail-lbl">${l}</span><span class="detail-val">${v}</span></div>`).join('');
+
+  const actions = document.getElementById('det-actions');
+  actions.innerHTML = '';
+  if(!r.revoked) {
+    const revokeBtn = document.createElement('button');
+    revokeBtn.className = 'action-btn danger';
+    revokeBtn.textContent = 'Revoke key';
+    revokeBtn.onclick = () => revokeKey(r.key);
+    actions.appendChild(revokeBtn);
+  } else {
+    const restoreBtn = document.createElement('button');
+    restoreBtn.className = 'action-btn';
+    restoreBtn.textContent = 'Restore key';
+    restoreBtn.onclick = () => restoreKey(r.key);
+    actions.appendChild(restoreBtn);
+  }
+  if(r.flagged) {
+    const clearBtn = document.createElement('button');
+    clearBtn.className = 'action-btn';
+    clearBtn.textContent = 'Clear flag';
+    clearBtn.onclick = () => clearFlag(r.key);
+    actions.appendChild(clearBtn);
+  }
+
+  document.getElementById('detail-overlay').classList.add('open');
+}
+
+function closeDetail(e) {
+  if(!e || e.target === document.getElementById('detail-overlay') || e.currentTarget !== document.getElementById('detail-overlay')) {
+    document.getElementById('detail-overlay').classList.remove('open');
+  }
+}
+
+async function revokeKey(key) {
+  if(!confirm(`Revoke key ${key}? The buyer will no longer be able to access the kit.`)) return;
+  await patchKey(key, { revoked: true });
+}
+async function restoreKey(key) {
+  await patchKey(key, { revoked: false });
+}
+async function clearFlag(key) {
+  await patchKey(key, { flagged: false, flag_reason: null });
+}
+async function patchKey(key, updates) {
+  await fetch(`${supabaseUrl}/rest/v1/license_keys?key=eq.${encodeURIComponent(key)}`, {
+    method: 'PATCH',
+    headers: { 'apikey': supabaseKey, 'Authorization': `Bearer ${supabaseKey}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+    body: JSON.stringify(updates)
+  });
+  document.getElementById('detail-overlay').classList.remove('open');
+  await loadData();
+}
+
+// ─── UTILS ──────────────────────────────────────────────────
+function relativeTime(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const m = Math.floor(diff/60000);
+  if(m < 1) return 'just now';
+  if(m < 60) return m+'m ago';
+  const h = Math.floor(m/60);
+  if(h < 24) return h+'h ago';
+  const d = Math.floor(h/24);
+  if(d < 30) return d+'d ago';
+  return formatDate(iso);
+}
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+}
+</script>
+</body>
+</html>

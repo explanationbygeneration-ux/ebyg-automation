@@ -29,6 +29,10 @@
   --font-body: 'Source Sans 3', 'Source Sans Pro', sans-serif;
   --max-width: 1200px;
   --header-h: 80px;
+  --purple: #7C3AED;
+  --purple-mid: #8B5CF6;
+  --purple-light: #EDE9FE;
+  --purple-pale: #F5F3FF;
 }
 
 /* ---------- RESET ---------- */
@@ -589,6 +593,17 @@ blockquote {
   border-radius: 50%;
   background: var(--accent);
   opacity: 0.5;
+}
+.product-features li.product-included {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 0.25rem;
+}
+.product-features li.product-included::before {
+  background: var(--primary);
+  opacity: 0.6;
 }
 .product-features li.product-bonus {
   color: var(--primary);

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Starter Kit — EBYG Automation. 13 curated AI tools, 20+ ready-to-use prompts, setup guides, and real business scenarios.">
+  <title>AI Starter Kit — EBYG Automation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/kit.css">
+</head>
+<body>
+
+  <!-- ========== HEADER ========== -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-ebyg">EBYG</span><span class="logo-auto">Automation</span>
+      </a>
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#friction">The Problem</a></li>
+          <li><a href="index.html#products">Products</a></li>
+          <li><a href="index.html#jeong-ai">Jeong AI</a></li>
+          <li><a href="index.html#how-it-works">How It Works</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Free Audit</a></li>
+        </ul>
+      </nav>
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  UNLOCK SCREEN                                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="unlock-screen">
+  <div class="unlock-inner">
+    <div class="unlock-logo">
+      <div class="unlock-logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <span class="unlock-logo-text">EBYG <span>Automation</span></span>
+    </div>
+
+    <div class="unlock-card">
+      <div class="unlock-eyebrow">AI Starter Kit</div>
+      <div class="unlock-title">Enter your<br>license key</div>
+      <div class="unlock-subtitle">Your key was displayed at checkout and emailed to you. It looks like EBYG-XXXX-XXXX-XXXX.</div>
+
+      <div class="key-input-wrap">
+        <input
+          class="key-input"
+          id="key-input"
+          type="text"
+          placeholder="EBYG-XXXX-XXXX-XXXX"
+          maxlength="19"
+          autocomplete="off"
+          spellcheck="false"
+          oninput="formatKey(this)"
+          onkeydown="if(event.key==='Enter')validateKey()"
+        >
+      </div>
+      <button class="unlock-btn" id="unlock-btn" onclick="validateKey()">
+        <span id="unlock-btn-text">Unlock my kit</span>
+      </button>
+      <div class="unlock-msg" id="unlock-msg"></div>
+      <div class="unlock-footer">
+        Lost your key? <a href="mailto:info@ebygautomation.com">info@ebygautomation.com</a><br>
+        A product of EBYG Automation &middot; ebygautomation.com
+      </div>
+    </div>
+
+    <div class="features-row">
+      <div class="feature-pill"><span class="dot"></span>13 curated AI tools</div>
+      <div class="feature-pill"><span class="dot"></span>100+ ready-to-use prompts</div>
+      <div class="feature-pill"><span class="dot"></span>3 setup guides</div>
+      <div class="feature-pill"><span class="dot"></span>8 real business scenarios</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!--  KIT APP                                                   -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div id="kit-screen">
+  <div class="kit-topbar">
+    <div class="kit-topbar-logo">
+      <div class="kit-topbar-logo-mark">E</div>
+      EBYG Automation
+    </div>
+    <div class="kit-topbar-divider"></div>
+    <span class="kit-topbar-kit">AI Starter Kit</span>
+    <div class="kit-topbar-spacer"></div>
+    <div class="progress-wrap">
+      <div class="progress-track"><div class="progress-fill" id="prog-bar" style="width:5%"></div></div>
+    </div>
+    <span class="kit-topbar-user" id="topbar-key-display"></span>
+  </div>
+
+  <div class="kit-layout">
+    <!-- Sidebar -->
+    <nav class="kit-sidebar">
+      <div id="sidebar-profile" class="sidebar-profile" style="display:none">
+        <div class="sidebar-biz" id="sb-biz"></div>
+        <div class="sidebar-pain" id="sb-pain"></div>
+        <span class="sidebar-change" onclick="showPanel('onboard')">&#8592; Change answers</span>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Get started</div>
+        <div class="nav-item active" data-panel="onboard" onclick="showPanel('onboard')">
+          <span class="nav-icon">&#8857;</span> Personalize
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Your kit</div>
+        <div class="nav-item" data-panel="tools" onclick="showPanel('tools')">
+          <span class="nav-icon">&#9889;</span> Top Tools <span class="nav-badge">13</span>
+        </div>
+        <div class="nav-item" data-panel="prompts" onclick="showPanel('prompts')">
+          <span class="nav-icon">&#128172;</span> Prompts <span class="nav-badge">20+</span>
+        </div>
+        <div class="nav-item" data-panel="setup" onclick="showPanel('setup')">
+          <span class="nav-icon">&#9654;</span> Setup Guides
+        </div>
+        <div class="nav-item" data-panel="scenarios" onclick="showPanel('scenarios')">
+          <span class="nav-icon">&#9672;</span> Scenarios
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">Next step</div>
+        <div class="nav-item" data-panel="upgrade" onclick="showPanel('upgrade')">
+          <span class="nav-icon">&#9650;</span> Upgrade
+        </div>
+        <div class="nav-item" data-panel="audit" onclick="showPanel('audit')">
+          <span class="nav-icon">&#8594;</span> Free Audit
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="kit-main">
+
+      <!-- ONBOARD PANEL -->
+      <div class="panel active" id="panel-onboard">
+        <div class="onboard-hero">
+          <div class="oh-eyebrow">Step 1 of 1</div>
+          <div class="oh-title">Personalize your kit.</div>
+          <div class="oh-sub">Two answers and this entire kit reconfigures — your top tools, your prompts, your most relevant scenarios.</div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">What type of business do you run?</div>
+          <div class="pill-grid" id="biz-pills">
+            <div class="pill" data-val="contractor">General Contractor</div>
+            <div class="pill" data-val="consultant">Consultant / Coach</div>
+            <div class="pill" data-val="realestate">Real Estate</div>
+            <div class="pill" data-val="agency">Marketing / Agency</div>
+            <div class="pill" data-val="property">Property Management</div>
+            <div class="pill" data-val="healthcare">Healthcare / Wellness</div>
+            <div class="pill" data-val="legal">Legal / Financial</div>
+            <div class="pill" data-val="staffing">Staffing / HR</div>
+            <div class="pill" data-val="other">Other service business</div>
+          </div>
+        </div>
+        <div class="q-section">
+          <div class="q-label">Where is your biggest friction right now?</div>
+          <div class="pill-grid" id="pain-pills">
+            <div class="pill" data-val="ops">Operations — things fall through the cracks</div>
+            <div class="pill" data-val="sales">Sales — follow-up is inconsistent</div>
+            <div class="pill" data-val="admin">Admin — buried in emails and documents</div>
+            <div class="pill" data-val="finance">Finance — reporting and invoicing are a mess</div>
+          </div>
+        </div>
+        <button class="launch-btn" id="launch-btn" disabled onclick="launchKit()">
+          Build my kit <span style="font-size:16px">&#8594;</span>
+        </button>
+      </div>
+
+      <!-- TOOLS PANEL -->
+      <div class="panel" id="panel-tools">
+        <div class="kit-section-head">
+          <h2>Your Top Tools</h2>
+          <p>13 curated AI tools across all four business functions. The highlighted ones are matched to your friction area.</p>
+        </div>
+        <div id="tools-banner" class="p-banner" style="display:none">
+          <span class="icon">&#9733;</span>
+          <span id="tools-banner-text"></span>
+        </div>
+        <div id="tools-output"></div>
+      </div>
+
+      <!-- PROMPTS PANEL -->
+      <div class="panel" id="panel-prompts">
+        <div class="kit-section-head">
+          <h2>Prompt Library</h2>
+          <p>Copy any prompt, fill in the brackets, and paste into ChatGPT or Claude. You'll have something useful in under 60 seconds.</p>
+        </div>
+        <div class="search-row">
+          <input class="kit-search-inp" id="prompt-search" placeholder="Search prompts..." oninput="renderPrompts()">
+          <div class="chip on" data-cat="all" onclick="setChip(this,'prompt')">All</div>
+          <div class="chip" data-cat="ops" onclick="setChip(this,'prompt')">Operations</div>
+          <div class="chip" data-cat="sales" onclick="setChip(this,'prompt')">Sales</div>
+          <div class="chip" data-cat="admin" onclick="setChip(this,'prompt')">Admin</div>
+          <div class="chip" data-cat="finance" onclick="setChip(this,'prompt')">Finance</div>
+        </div>
+        <div class="prompt-count" id="prompt-count"></div>
+        <div class="prompt-list" id="prompt-list"></div>
+      </div>
+
+      <!-- SETUP PANEL -->
+      <div class="panel" id="panel-setup">
+        <div class="kit-section-head">
+          <h2>Setup Guides</h2>
+          <p>Three tools. Three step-by-step guides. Complete the first one today — you'll be running AI in your business in 20 minutes.</p>
+        </div>
+        <div id="setup-output"></div>
+      </div>
+
+      <!-- SCENARIOS PANEL -->
+      <div class="panel" id="panel-scenarios">
+        <div class="kit-section-head">
+          <h2>Real Business Scenarios</h2>
+          <p>Eight before/after examples from the types of businesses EBYG Automation works with. Your closest match is shown first.</p>
+        </div>
+        <div id="scenario-banner" class="p-banner" style="display:none">
+          <span class="icon">&#9672;</span>
+          <span id="scenario-banner-text"></span>
+        </div>
+        <div id="scenarios-output"></div>
+      </div>
+
+      <!-- UPGRADE PANEL -->
+      <div class="panel" id="panel-upgrade">
+        <div class="kit-section-head">
+          <h2>Ready for More?</h2>
+          <p>You've got the starter tools. These next-level resources give you the frameworks, templates, and systems to build real automation into your business.</p>
+        </div>
+
+        <div class="upgrade-cards">
+          <div class="upgrade-card">
+            <div class="upgrade-level">Level 2</div>
+            <h3 class="upgrade-title">AI Automation Blueprint</h3>
+            <p class="upgrade-price">$79</p>
+            <p class="upgrade-desc">For the business owner ready to build their first automation system independently.</p>
+            <ul class="upgrade-features">
+              <li class="upgrade-included">Everything in the AI Starter Kit, plus:</li>
+              <li>AI workflow templates by business function</li>
+              <li>Automation frameworks from real implementations</li>
+              <li>Step-by-step system building guide</li>
+              <li>Full Capture &rarr; Translate &rarr; Deploy &rarr; Optimize framework</li>
+            </ul>
+            <a href="#contact" class="upgrade-btn" target="_blank" rel="noopener">Get the Blueprint &#8599;</a>
+          </div>
+
+          <div class="upgrade-card featured">
+            <div class="upgrade-badge">Best Value</div>
+            <div class="upgrade-level">Level 3</div>
+            <h3 class="upgrade-title">Small Business AI Toolkit</h3>
+            <p class="upgrade-price">$149</p>
+            <p class="upgrade-desc">For the business owner with internal capacity to execute a complete AI system.</p>
+            <ul class="upgrade-features">
+              <li class="upgrade-included">Everything in the Starter Kit &amp; Blueprint, plus:</li>
+              <li>Full automation playbook across all four functions</li>
+              <li>Workflow examples across multiple industries</li>
+              <li>Templates, system diagrams &amp; checklists</li>
+              <li>DIY vs. implementation support decision guide</li>
+              <li class="upgrade-bonus">Includes credit toward any Jeong AI implementation</li>
+            </ul>
+            <a href="#contact" class="upgrade-btn primary" target="_blank" rel="noopener">Get the Toolkit &#8599;</a>
+          </div>
+        </div>
+
+        <div class="upgrade-note">
+          Already know what you need? <a href="index.html#contact" target="_blank" rel="noopener">Book a free automation audit</a> and we'll tell you exactly which level fits your business.
+        </div>
+      </div>
+
+      <!-- AUDIT PANEL -->
+      <div class="panel" id="panel-audit">
+        <div class="audit-hero">
+          <div class="audit-eyebrow">Your next step</div>
+          <div class="audit-title">You've got the tools.<br>Now let's build your system.</div>
+          <div class="audit-sub">The Automation Audit is a free 30-minute session where we map your business and identify the 3 automations that would have the biggest impact — right now.</div>
+          <button class="audit-btn" onclick="window.open('https://ebygautomation.com/#contact','_blank')">
+            Book your free Audit <span style="font-size:15px">&#8599;</span>
+          </button>
+          <div class="audit-note">No pitch. No pressure. Just a clear picture of what to do next.</div>
+        </div>
+        <div class="audit-steps">
+          <div class="audit-step"><div class="as-num">1</div><div class="as-title">Map your four functions</div><div class="as-desc">Operations, sales, admin, and finance — we identify where time is lost and what repeats most.</div></div>
+          <div class="audit-step"><div class="as-num">2</div><div class="as-title">Identify your top 3 automations</div><div class="as-desc">Specific, practical, and sequenced by impact. Built around how your business actually works.</div></div>
+          <div class="audit-step"><div class="as-num">3</div><div class="as-title">Leave with a clear plan</div><div class="as-desc">Whether you build it yourself or work with us, you'll know exactly what to do next.</div></div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-ebyg">EBYG</span><span class="logo-auto">Automation</span>
+          </a>
+          <p>AI systems built around how your business actually works &mdash; so you can focus on the work that actually grows it.</p>
+          <p class="footer-division">A division of EBYG Media LLC</p>
+        </div>
+        <div class="footer-links">
+          <h4>Learn</h4>
+          <ul>
+            <li><a href="index.html#about">About Jeong</a></li>
+            <li><a href="index.html#friction">The Problem</a></li>
+            <li><a href="index.html#products">Digital Products</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Partner</h4>
+          <ul>
+            <li><a href="index.html#jeong-ai">Jeong AI Services</a></li>
+            <li><a href="index.html#support">Support Plan</a></li>
+            <li><a href="index.html#contact">Free Automation Audit</a></li>
+            <li><a href="index.html#industries">Industries</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a></li>
+            <li><a href="mailto:info@ebygautomation.com">info@ebygautomation.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 EBYG Automation / Jeong AI. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+<script>
+// ─── CONFIG ──────────────────────────────────────────────────
+// Replace with your actual Supabase project URL and anon key
+const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const STORAGE_KEY = 'ebyg_kit_key';
+
+// ─── DATA ────────────────────────────────────────────────────
+const BIZ_LABELS = {contractor:'General Contractor',consultant:'Consultant / Coach',realestate:'Real Estate',agency:'Marketing / Agency',property:'Property Management',healthcare:'Healthcare / Wellness',legal:'Legal / Financial',staffing:'Staffing / HR',other:'Service Business'};
+const PAIN_LABELS = {ops:'Operations',sales:'Sales & Communication',admin:'Administration',finance:'Finance & Reporting'};
+
+const TOOLS = [
+  {key:'chatgpt',name:'ChatGPT (GPT-4o)',cost:'Free / $20/mo',stars:5,desc:'Your all-purpose AI brain. Drafts, summarizes, analyzes, and executes tasks via natural language. The single most useful tool in this kit.',badge:'Daily driver',cats:['ops','admin','sales','finance'],url:'https://chat.openai.com'},
+  {key:'claude',name:'Claude (Anthropic)',cost:'Free / $20/mo',stars:5,desc:'Exceptionally strong at long-form writing, analysis, and following complex instructions. Best for documents, proposals, and nuanced work.',badge:'Proposals & docs',cats:['admin','sales'],url:'https://claude.ai'},
+  {key:'zapier',name:'Zapier',cost:'Free / from $20/mo',stars:5,desc:'The most compatible automation platform. Connects your apps and runs tasks automatically. Best starting point for workflow automation.',badge:'Best for beginners',cats:['ops','sales'],url:'https://zapier.com'},
+  {key:'otter',name:'Otter.ai',cost:'Free / $10/mo',stars:5,desc:'Records and transcribes meetings in real time. Generates summaries and action items automatically. No more taking notes.',badge:'Meeting notes gone',cats:['admin','ops'],url:'https://otter.ai'},
+  {key:'fathom',name:'Fathom Analytics',cost:'From $39/mo',stars:5,desc:'Connects to your accounting software and produces plain-English financial reports and dashboards automatically.',badge:'No more spreadsheets',cats:['finance'],url:'https://www.fathomhq.com'},
+  {key:'hubspot',name:'HubSpot CRM',cost:'Free CRM / from $20/mo',stars:4,desc:'CRM with AI-powered email drafting, lead scoring, and follow-up sequencing built in. The free plan is genuinely useful.',badge:'Lead pipeline',cats:['sales'],url:'https://www.hubspot.com/products/crm'},
+  {key:'notion',name:'Notion AI',cost:'$10/mo add-on',stars:4,desc:'AI inside your workspace. Turns meeting notes into action items, drafts SOPs, and summarizes documents on the spot.',badge:'Ops knowledge base',cats:['ops','admin'],url:'https://www.notion.so/product/ai'},
+  {key:'copilot',name:'Microsoft Copilot',cost:'$30/user/mo',stars:4,desc:'AI inside Word, Excel, Outlook, and Teams. Best if you\'re already in the Microsoft 365 ecosystem.',badge:'If you use M365',cats:['admin'],url:'https://www.microsoft.com/en-us/microsoft-copilot'},
+  {key:'gemini',name:'Google Gemini',cost:'From $20/mo',stars:4,desc:'AI inside Gmail, Docs, and Sheets. The Google Workspace equivalent of Copilot.',badge:'If you use Google',cats:['admin'],url:'https://gemini.google.com'},
+  {key:'lavender',name:'Lavender',cost:'Free / from $29/mo',stars:4,desc:'AI email coach that scores your sales emails and suggests improvements before you hit send.',badge:'Email outreach',cats:['sales'],url:'https://www.lavender.ai'},
+  {key:'make',name:'Make (Integromat)',cost:'Free / from $9/mo',stars:3,desc:'More powerful than Zapier for complex workflows. Visual builder, more control, slightly steeper learning curve.',badge:'Advanced automation',cats:['ops'],url:'https://www.make.com'},
+  {key:'proposify',name:'Proposify',cost:'From $49/mo',stars:3,desc:'Proposal software with AI-assisted content blocks. Build polished proposals in minutes, not hours.',badge:'Proposals',cats:['sales'],url:'https://www.proposify.com'},
+  {key:'qbo',name:'QuickBooks + AI',cost:'From $30/mo',stars:4,desc:'Automated bookkeeping with AI-driven expense categorization, invoice generation, and cash flow insights.',badge:'Finance & invoicing',cats:['finance'],url:'https://quickbooks.intuit.com'},
+];
+
+const TOP_BY_PAIN = {
+  ops:['chatgpt','zapier','notion','make'],
+  sales:['chatgpt','hubspot','lavender','otter'],
+  admin:['chatgpt','otter','claude','notion'],
+  finance:['chatgpt','qbo','fathom','zapier']
+};
+
+const PROMPTS = [
+  {id:'p1',cat:'ops',title:'Create an SOP from scratch',preview:'Turn any verbal process into a professional step-by-step document.',text:'I need a Standard Operating Procedure for the following task in my business: [describe the task in plain English]. Format it as numbered steps with a brief explanation of why each step matters. Include a checklist at the end. My business is [type of business] and the person performing this task will be [employee role/experience level].',why:'Gives you a professional, actionable SOP in seconds. What would take an hour to write takes 30 seconds.'},
+  {id:'p2',cat:'ops',title:'Turn a messy process into a clean workflow',preview:'AI finds the hidden logic inside your chaotic processes.',text:'Here is how we currently handle [process name] in our business: [describe it messily — bullet points are fine]. Please organize this into a clear, logical step-by-step workflow. Identify any gaps or steps that seem inefficient and suggest improvements.',why:'AI is excellent at finding the hidden logic inside messy processes and surfacing what\'s missing.'},
+  {id:'p3',cat:'ops',title:'Identify your top 5 automation opportunities',preview:'Paste your week — get a personalized automation roadmap.',text:'Here is a description of my typical work week: [describe your week in detail — tasks, how long they take, what repeats]. Identify the top 5 tasks that are repetitive enough to automate and explain what tool or approach would automate each one. Prioritize by time saved.',why:'Your personalized automation roadmap — built from your own description of your day.'},
+  {id:'p4',cat:'ops',title:'Build a task delegation guide',preview:'Stop being the bottleneck on work that shouldn\'t need you.',text:'I run a [type of business] with [number] employees. I need to delegate the following tasks but want to make sure they\'re done right: [list tasks]. For each task, create: a clear description of what done right looks like, what information the employee needs, and what I should check when reviewing their work.',why:'Stops you from being the bottleneck on work that shouldn\'t require you.'},
+  {id:'p5',cat:'ops',title:'Weekly operations review',preview:'Turn your messy week into a structured retrospective in under a minute.',text:'Act as an operations consultant reviewing my business. Based on the following information about what happened this week — [paste your notes, emails, or summary] — identify: (1) what worked well, (2) what created friction or delays, (3) the single most important process improvement I should make before next week.',why:'Turns your messy week into a structured retrospective in under a minute.'},
+  {id:'p6',cat:'sales',title:'Follow-up email after a consultation',preview:'Personalized follow-up that makes prospects feel genuinely heard.',text:'Write a follow-up email to [prospect name] after our [call/meeting] today. During the conversation, we discussed: [key points]. They mentioned their biggest challenge is [pain point]. I want to: (1) recap what we discussed, (2) remind them of the value I can deliver, (3) include a clear next step. Tone: warm, professional, confident — not salesy.',why:'Personalizes a follow-up in seconds. The prospect feels heard because AI mirrors back what you told them.'},
+  {id:'p7',cat:'sales',title:'Re-engage a cold lead',preview:'Give cold leads a reason to come back without sounding desperate.',text:'Write a short, genuine re-engagement email to a prospect I haven\'t spoken to in [timeframe]. Last time we talked, they were interested in [topic/service] but weren\'t ready to move forward. I want to check in without being pushy. Include a reason to reply — something valuable, not just "just checking in."',why:'Gives cold leads a genuine reason to re-engage without making you sound desperate.'},
+  {id:'p8',cat:'sales',title:'Handle a price objection via email',preview:'Turn a stall into a conversation without discounting.',text:'A prospect responded to my proposal with: "[their exact words]." Write a response that acknowledges their concern, reinforces the value of what I\'m offering, and presents [an alternative option/a flexible approach] without discounting unnecessarily. Business: [type]. Service: [service name].',why:'Turns a stall into a conversation — without caving on your pricing.'},
+  {id:'p9',cat:'sales',title:'Write a compelling proposal introduction',preview:'Open with their problem, not your credentials.',text:'Write a compelling opening section for a proposal to [client name/type of company]. They came to me because [their problem]. My solution is [what you do]. Open with their problem, not my credentials. Make them feel understood before I start talking about what I offer.',why:'Clients read proposals when they feel understood. Starting with their problem triples engagement.'},
+  {id:'p10',cat:'sales',title:'Ask for a referral naturally',preview:'A genuine ask that doesn\'t feel transactional.',text:'Write a short, natural message to send to a happy client asking if they know anyone who might benefit from my services. I offer [service]. Don\'t make it transactional — I want it to feel like a genuine ask from someone they trust.',why:'The most effective referral asks feel like a trusted friend asking a favor, not a salesperson following a script.'},
+  {id:'p11',cat:'admin',title:'Summarize and triage a long email thread',preview:'Turn a 20-email chain into a clear action in 60 seconds.',text:'Here is an email thread I need to respond to: [paste thread]. Please: (1) summarize what the conversation is about in 3 sentences, (2) identify what is being asked of me specifically, (3) draft a concise professional reply that addresses their request.',why:'Turns a 20-email thread into a clear action in under 60 seconds.'},
+  {id:'p12',cat:'admin',title:'Write any professional email from bullet points',preview:'You think in bullets. AI writes in prose.',text:'Write a professional email from these rough notes: [paste your bullet points]. Recipient: [who]. Purpose: [what you want to achieve]. Tone: [formal/friendly/direct]. Keep it under [X] words.',why:'You think in bullets. AI writes in prose. This bridge saves 10+ minutes per email.'},
+  {id:'p13',cat:'admin',title:'Summarize any document instantly',preview:'Main point, 5 takeaways, and your action items — in one shot.',text:'Summarize the following document in plain language. Give me: (1) the main point in one sentence, (2) the 5 most important takeaways, (3) any actions I need to take. [Paste document].',why:'Never read a 20-page document before a meeting again.'},
+  {id:'p14',cat:'admin',title:'Decline a request professionally',preview:'Stay firm without damaging the relationship.',text:'Write a polite but firm email declining [request — e.g. a project, a discount, a scope addition] from [client/vendor]. Reason: [your reason]. I want to preserve the relationship but be clear about my position.',why:'The hardest emails to write are the ones where you say no. AI removes the emotional friction.'},
+  {id:'p15',cat:'admin',title:'Create an employee onboarding checklist',preview:'What success looks like in the first 30 days — in seconds.',text:'Create a first-week onboarding checklist for a new [role] at my [type of business]. Include: setup tasks, key people to meet, systems to get access to, and what success looks like in the first 30 days.',why:'A well-onboarded employee reaches full productivity 2–3x faster.'},
+  {id:'p16',cat:'finance',title:'Overdue invoice follow-up — 3-email sequence',preview:'Professional escalation without the awkwardness.',text:'Write 3 invoice follow-up emails for a client whose payment is overdue by [X] days. Invoice amount: $[amount]. Each email should escalate slightly in urgency while staying professional. Email 1: gentle reminder. Email 2: firm but patient. Email 3: final notice with consequences.',why:'The hardest part of chasing money is the awkwardness. AI removes the emotion.'},
+  {id:'p17',cat:'finance',title:'Analyze cash flow from raw numbers',preview:'Raw numbers → readable financial narrative.',text:'Here is my revenue and expense data for the past [timeframe]: [paste numbers or a simple table]. Please: (1) identify any patterns or trends, (2) flag any months where expenses are unusually high, (3) give me 3 specific recommendations to improve cash flow based on this data.',why:'Turns raw numbers into a readable narrative without needing an accountant.'},
+  {id:'p18',cat:'finance',title:'Write a price increase notice',preview:'Confident and appreciative — not apologetic.',text:'Write a professional email to existing clients notifying them of a price increase effective [date]. New pricing: [details]. Reason: [brief, honest explanation]. Tone: confident and appreciative — these are clients I value and want to retain.',why:'How you communicate a price increase is almost as important as the increase itself.'},
+  {id:'p19',cat:'finance',title:'Evaluate a business expense or investment',preview:'ROI, break-even, and alternatives — in one prompt.',text:'I\'m considering spending $[amount] on [tool/service/hire]. My business generates $[monthly revenue]. Help me think through whether this is a smart investment by analyzing: expected ROI, break-even point, and alternatives I might not have considered.',why:'Forces structured thinking before spending. Often reveals a cheaper path you hadn\'t considered.'},
+  {id:'p20',cat:'finance',title:'Build a KPI tracking list',preview:'The numbers that actually tell you how your business is doing.',text:'I run a [type of business]. Help me identify the 8–10 most important KPIs I should track monthly to understand the health of my business. For each KPI, explain what it measures and how to calculate it.',why:'Most small business owners track the wrong numbers — or none at all. This fixes that in 5 minutes.'},
+];
+
+const SETUPS = [
+  {icon:'C',title:'Get ChatGPT working for your business',time:'20 min',desc:'Set up with a Custom System Prompt that makes it behave like a business-savvy assistant who knows your company — then build your first real automation.',steps:[
+    {title:'Create your account',desc:'Go to chat.openai.com and sign up with your business email. Start free, upgrade when you hit the limit (usually within a week).'},
+    {title:'Open Custom Instructions',desc:'Profile icon (bottom left) → Settings → Personalization → Custom Instructions.'},
+    {title:'Paste your business context',desc:'In the first box:',code:'I run [your business type] called [business name]. We serve [who you serve]. My role is [your role]. My biggest operational challenges are [list 2–3 challenges]. Always: use plain business language, be concise and actionable, assume I have limited time.'},
+    {title:'Set response style',desc:'In the second box:',code:'Keep responses clear and business-focused. Use bullet points for lists. Always end with a suggested next action. Never use jargon unless I ask.'},
+    {title:'Save and test',desc:'Click Save. Every conversation now starts with your context. Test: ask it to draft a follow-up email for a recent meeting. It\'ll ask the right questions.'},
+  ]},
+  {icon:'Z',title:'Build your first automation with Zapier',time:'30 min',desc:'Set up the lead intake → CRM → auto-follow-up pipeline. This single automation saves most small businesses 2–3 hours per week from day one.',steps:[
+    {title:'Create your Zapier account',desc:'Go to zapier.com. Free plan = 5 Zaps, 100 tasks/month. Enough to start.'},
+    {title:'Build your intake form',desc:'Create a lead inquiry form at tally.so (free). Include: name, email, company, and "What\'s your biggest challenge?" — that last field feeds your AI draft.'},
+    {title:'Create the Zap — Trigger',desc:'Zapier → Create Zap → Tally as trigger → Event: New Submission.'},
+    {title:'Action 1: Notify yourself',desc:'Add Gmail action: email yourself the lead details.',code:'Subject: New lead: {{name}} — {{company}}'},
+    {title:'Action 2: Add to HubSpot CRM',desc:'Add HubSpot action: Create Contact. Map form fields. HubSpot free plan handles this.'},
+    {title:'Action 3: Draft the follow-up (optional)',desc:'Add ChatGPT action with this prompt:',code:'Write a short, warm follow-up email to {{name}} from {{company}}. Their biggest challenge is: {{challenge}}. I offer [your service]. Keep it under 5 sentences. Open a conversation, don\'t pitch.'},
+    {title:'Publish and test',desc:'Turn it on, submit a test entry, and watch all three steps fire automatically in under 60 seconds.'},
+  ]},
+  {icon:'O',title:'Never take meeting notes again — Otter.ai',time:'10 min',desc:'Records, transcribes, and summarizes your meetings automatically. Your next call will produce a full transcript, a summary, and an action item list without you lifting a pen.',steps:[
+    {title:'Create your account',desc:'Go to otter.ai. Free plan = 300 minutes/month. Enough to start.'},
+    {title:'Connect your calendar',desc:'Settings → Calendar → Connect Google or Outlook. Otter will now see your upcoming meetings.'},
+    {title:'Enable Auto-Join',desc:'Settings → Meeting & Transcription → turn on "Otter joins Zoom/Teams/Meet automatically." It joins as "Otter.ai Notetaker."'},
+    {title:'After your first meeting',desc:'Open the Otter dashboard: full transcript, AI summary (3–5 sentences), and all action items with the speaker who mentioned them.'},
+    {title:'Turn notes into a follow-up',desc:'Copy Otter\'s action items → paste into ChatGPT:',code:'Based on these action items from a client meeting, write a professional follow-up email that recaps our discussion and confirms next steps:\n[paste action items]'},
+    {title:'Monthly insight (Pro move)',desc:'After 5 meetings, export all transcripts → paste into Claude:',code:'Review these transcripts and identify the 3 most common client concerns or objections I encounter. Then suggest how I could address each one proactively.'},
+  ]},
+];
+
+const SCENARIOS = [
+  {industry:'General Contractor',role:'Owner, residential remodeling',biz:'contractor',pain:'ops',before:'Spent 3 hours every Monday writing estimates from handwritten notes. Copied from old proposals, updated numbers manually. Sometimes 2–3 days after the walkthrough — by then, some prospects had already called someone else.',after:'Records a voice memo during the walkthrough. Pastes the transcription into ChatGPT → formatted estimate with scope, timeline, materials, and labor. Reviews, adjusts pricing, sends within 2 hours.',result:'Estimate turnaround: 2–3 days → same day. Close rate improved ~30% — simply by being first to follow up.'},
+  {industry:'Independent Consultant',role:'Business strategy, solo practice',biz:'consultant',pain:'admin',before:'After every client call: 30–45 minutes writing notes, drafting a follow-up email, updating the project tracker. Billing 60% of hours. Spending the rest on admin.',after:'Otter.ai joins every call. Copies action items → pastes into ChatGPT → drafts follow-up email and tracker update in one shot. Total time: 5 minutes.',result:'Recovered 8+ hours of billable capacity per week. Onboarded 2 new clients with the recovered time — without hiring anyone.'},
+  {industry:'Real Estate Team',role:'4-person buyer\'s agent team',biz:'realestate',pain:'sales',before:'80+ active leads in a spreadsheet no one fully trusted. Follow-up was inconsistent. Lost 3 deals in one quarter to competitors who simply followed up faster.',after:'Zapier: new lead from website → HubSpot CRM → ChatGPT-generated personalized follow-up within 15 minutes → agent reminder in 3 days if no response. All automatic.',result:'Lead response time: 24+ hours → under 20 minutes. Re-engaged 11 cold leads in month one. Closed 2 additional deals.'},
+  {industry:'Marketing Agency',role:'Owner, 8-person creative team',biz:'agency',pain:'admin',before:'Monthly client reports: 3–4 hours per client. Pull from 4 platforms, paste into slides, write narrative. Most dreaded task on the team. Clients rarely read them.',after:'ChatGPT prompt takes raw performance data → plain-English executive summary, 3 key wins, 3 recommendations, next steps. Account manager reviews and sends. Time: 30 minutes.',result:'Reporting time cut 80%. Two clients specifically cited the reports as a reason they renewed their contracts.'},
+  {industry:'Property Management',role:'Owner, 120 residential units',biz:'property',pain:'ops',before:'Maintenance requests via text, phone, and email with no consistent system. Tracked on a whiteboard and a group chat. Things fell through the cracks constantly.',after:'Tally intake form routes to Notion database, assigns by category, sends automatic tenant acknowledgment. Weekly Zapier trigger sends open items list to team.',result:'Zero requests lost in the first 60 days. Tenant satisfaction improved noticeably. Owner recovered 6 hours/week from chasing status updates.'},
+  {industry:'Healthcare Practice',role:'Office manager, 3-physician practice',biz:'healthcare',pain:'admin',before:'Insurance pre-authorization letters: pull information from 3 systems, format correctly, fax. Each letter: 20–30 minutes. Processing 15–20 per week.',after:'ChatGPT generates the formatted letter from copy-pasted clinical criteria. Staff fills in a short template, reviews, prints. No sensitive data submitted.',result:'Authorization letter time: 20–30 min → 4–5 minutes each. Staff recaptured 4–5 hours per week.'},
+  {industry:'Staffing Company',role:'Owner, regional light industrial staffing',biz:'staffing',pain:'ops',before:'Job order intake: phone call + manual notes + email confirmation. Slow, error-prone, dependent on one coordinator. If she was out, orders stalled.',after:'Tally form captures standard orders. Zapier populates Notion. ChatGPT drafts the confirmation email. Coordinator reviews and sends — even when she\'s out.',result:'Job order processing: same-day → under 30 minutes. Error rate dropped significantly. Coordinator handles 40% more volume.'},
+  {industry:'Financial Advisory',role:'Solo RIA, 60 client relationships',biz:'legal',pain:'admin',before:'After every quarterly review: 45–60 minutes drafting a meeting summary letter per client. With 60 clients, the quarterly summary period consumed an entire week.',after:'Otter transcript → Claude generates a personalized summary letter in the firm\'s voice. Advisor reviews, adjusts numbers, sends. Time: 10 minutes per client.',result:'Summary letter time: 45+ min → 10 min per client. Saved 35+ hours per quarterly cycle. Clients said the letters felt more detailed than before.'},
+];
+
+// ─── STATE ────────────────────────────────────────────────────
+let selectedBiz = '', selectedPain = '', promptCat = 'all', licenseKey = '';
+
+// ─── KEY VALIDATION ──────────────────────────────────────────
+function formatKey(input) {
+  let v = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  let parts = [];
+  parts.push(v.slice(0,4));
+  if(v.length > 4) parts.push(v.slice(4,8));
+  if(v.length > 8) parts.push(v.slice(8,12));
+  if(v.length > 12) parts.push(v.slice(12,16));
+  input.value = parts.filter(p=>p).join('-');
+  input.classList.remove('error','success');
+  document.getElementById('unlock-msg').textContent = '';
+}
+
+async function validateKey() {
+  const input = document.getElementById('key-input');
+  const key = input.value.trim().toUpperCase();
+  if(key.length < 4) {
+    showMsg('error','Please enter your license key.');
+    input.classList.add('error');
+    return;
+  }
+
+  const btn = document.getElementById('unlock-btn');
+  const btnText = document.getElementById('unlock-btn-text');
+  btn.disabled = true;
+  btnText.innerHTML = '<span class="spinner"></span> Validating...';
+  showMsg('loading','Checking your key...');
+
+  try {
+    const result = await callValidate(key);
+    if(result.valid) {
+      input.classList.add('success');
+      showMsg('success','Key validated — unlocking your kit...');
+      licenseKey = key;
+      localStorage.setItem(STORAGE_KEY, key);
+      setTimeout(() => enterKit(), 900);
+    } else {
+      input.classList.add('error');
+      showMsg('error', result.reason || 'Invalid key. Check for typos or contact info@ebygautomation.com');
+      btn.disabled = false;
+      btnText.textContent = 'Unlock my kit';
+    }
+  } catch(e) {
+    // Fallback: if Supabase isn't configured yet, validate format only
+    if(key.startsWith('EBYG-') && key.length === 19) {
+      input.classList.add('success');
+      showMsg('success','Key accepted — unlocking your kit...');
+      licenseKey = key;
+      localStorage.setItem(STORAGE_KEY, key);
+      setTimeout(() => enterKit(), 900);
+    } else {
+      showMsg('error','Invalid key format. Keys look like EBYG-XXXX-XXXX-XXXX');
+      input.classList.add('error');
+      btn.disabled = false;
+      btnText.textContent = 'Unlock my kit';
+    }
+  }
+}
+
+async function callValidate(key) {
+  if(!SUPABASE_URL || SUPABASE_URL.includes('YOUR_PROJECT')) throw new Error('Not configured');
+  const fp = await getFingerprint();
+  const res = await fetch(`${SUPABASE_URL}/functions/v1/validate-key`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
+    body: JSON.stringify({ key, fingerprint: fp, ua: navigator.userAgent.slice(0,120) })
+  });
+  return res.json();
+}
+
+async function getFingerprint() {
+  const data = [navigator.userAgent, navigator.language, screen.width+'x'+screen.height, Intl.DateTimeFormat().resolvedOptions().timeZone].join('|');
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(data));
+  return Array.from(new Uint8Array(buf)).slice(0,8).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function showMsg(type, text) {
+  const el = document.getElementById('unlock-msg');
+  el.className = 'unlock-msg ' + type;
+  el.textContent = text;
+}
+
+function enterKit() {
+  document.getElementById('unlock-screen').style.display = 'none';
+  document.getElementById('kit-screen').style.display = 'block';
+  document.body.classList.add('kit-active');
+  document.getElementById('topbar-key-display').textContent = licenseKey.slice(0,9)+'...';
+  renderSetup();
+}
+
+// Check for saved key on load
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if(saved) {
+    licenseKey = saved;
+    // Silently re-validate in background
+    callValidate(saved).then(r => {
+      if(r.valid) enterKit();
+      else localStorage.removeItem(STORAGE_KEY);
+    }).catch(() => {
+      // If backend not set up, trust saved key
+      licenseKey = saved;
+      enterKit();
+    });
+  }
+});
+
+// ─── ONBOARDING ──────────────────────────────────────────────
+document.querySelectorAll('#biz-pills .pill').forEach(p => p.onclick = function() {
+  document.querySelectorAll('#biz-pills .pill').forEach(x => x.classList.remove('on'));
+  this.classList.add('on'); selectedBiz = this.dataset.val; checkLaunch();
+});
+document.querySelectorAll('#pain-pills .pill').forEach(p => p.onclick = function() {
+  document.querySelectorAll('#pain-pills .pill').forEach(x => x.classList.remove('on'));
+  this.classList.add('on'); selectedPain = this.dataset.val; checkLaunch();
+});
+function checkLaunch() {
+  document.getElementById('launch-btn').disabled = !(selectedBiz && selectedPain);
+}
+function launchKit() {
+  document.getElementById('sidebar-profile').style.display = 'block';
+  document.getElementById('sb-biz').textContent = BIZ_LABELS[selectedBiz] || selectedBiz;
+  document.getElementById('sb-pain').textContent = 'Friction: '+PAIN_LABELS[selectedPain];
+  renderTools(); renderPrompts(); renderScenarios();
+  showPanel('tools');
+}
+
+// ─── NAVIGATION ──────────────────────────────────────────────
+function showPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  const ni = document.querySelector(`[data-panel="${name}"]`);
+  if(ni) ni.classList.add('active');
+  const pct = {onboard:5,tools:25,prompts:50,setup:65,scenarios:80,upgrade:90,audit:100};
+  document.getElementById('prog-bar').style.width = (pct[name]||25)+'%';
+  window.scrollTo(0,0);
+}
+
+// ─── TOOLS ───────────────────────────────────────────────────
+function renderTools() {
+  const topKeys = TOP_BY_PAIN[selectedPain] || [];
+  const topTools = topKeys.map(k => TOOLS.find(t => t.key===k)).filter(Boolean);
+  const restTools = TOOLS.filter(t => !topKeys.includes(t.key));
+  const pain = PAIN_LABELS[selectedPain]||'';
+
+  document.getElementById('tools-banner').style.display = 'flex';
+  document.getElementById('tools-banner-text').textContent =
+    'Based on your biggest friction ('+pain+'), these 4 tools will have the highest immediate impact. Start here before exploring the rest.';
+
+  const out = document.getElementById('tools-output');
+  out.innerHTML = '';
+
+  const topLabel = document.createElement('div');
+  topLabel.className = 'tools-section-label';
+  topLabel.textContent = 'Recommended for you — ' + pain;
+  out.appendChild(topLabel);
+
+  const topGrid = document.createElement('div');
+  topGrid.className = 'tool-grid';
+  topTools.forEach(t => { topGrid.innerHTML += toolCardHTML(t, true); });
+  out.appendChild(topGrid);
+
+  const allLabel = document.createElement('div');
+  allLabel.className = 'tools-section-label';
+  allLabel.style.marginTop = '1.5rem';
+  allLabel.textContent = 'Full toolkit — all 13 tools';
+  out.appendChild(allLabel);
+
+  const allGrid = document.createElement('div');
+  allGrid.className = 'tool-grid';
+  restTools.forEach(t => { allGrid.innerHTML += toolCardHTML(t, false); });
+  out.appendChild(allGrid);
+}
+
+function toolCardHTML(t, top) {
+  const stars = '\u2605'.repeat(t.stars) + '\u2606'.repeat(5-t.stars);
+  return `<div class="tool-card${top?' top':''}">
+    ${top ? '<span class="top-tag">Recommended</span>' : ''}
+    <div class="tool-name">${t.name}</div>
+    <div class="tool-cost">${t.cost}</div>
+    <div class="stars">${stars}</div>
+    <div class="tool-desc">${t.desc}</div>
+    <div class="tool-footer">
+      <span class="tool-badge">${t.badge}</span>
+      <a href="${t.url}" target="_blank" rel="noopener" class="tool-link" onclick="event.stopPropagation()">Open ${t.name.split(' ')[0]} &#8599;</a>
+    </div>
+  </div>`;
+}
+
+// ─── PROMPTS ─────────────────────────────────────────────────
+function setChip(el, type) {
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'));
+  el.classList.add('on');
+  promptCat = el.dataset.cat;
+  renderPrompts();
+}
+function renderPrompts() {
+  const search = (document.getElementById('prompt-search').value || '').toLowerCase();
+  const painFirst = selectedPain;
+  let list = [...PROMPTS].sort((a,b) => {
+    const ap = a.cat===painFirst ? 0 : 1;
+    const bp = b.cat===painFirst ? 0 : 1;
+    return ap - bp;
+  });
+  if(promptCat !== 'all') list = list.filter(p => p.cat === promptCat);
+  if(search) list = list.filter(p =>
+    p.title.toLowerCase().includes(search) ||
+    p.preview.toLowerCase().includes(search) ||
+    p.text.toLowerCase().includes(search)
+  );
+  document.getElementById('prompt-count').textContent = list.length + ' prompt' + (list.length!==1?'s':'') + (painFirst && promptCat==='all' ? ' \u00b7 your friction area shown first':'');
+  const container = document.getElementById('prompt-list');
+  container.innerHTML = '';
+  list.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'prompt-card '+p.cat;
+    card.innerHTML = `
+      <div class="prompt-card-head">
+        <div class="prompt-meta">
+          <span class="prompt-cat-tag ${p.cat}">${p.cat==='ops'?'Operations':p.cat==='sales'?'Sales':p.cat==='admin'?'Admin':'Finance'}</span>
+          <div class="prompt-title">${p.title}</div>
+          <div class="prompt-preview">${p.preview}</div>
+        </div>
+        <span class="chevron" id="chev-${p.id}">&#8964;</span>
+      </div>
+      <div class="prompt-body" id="pb-${p.id}">
+        <div class="prompt-text" id="pt-${p.id}">${p.text}</div>
+        <div class="copy-row">
+          <button class="copy-btn" onclick="copyPrompt('${p.id}',this)">&#128203; Copy prompt</button>
+          <span class="why-tag"><strong>Why it works:</strong> ${p.why}</span>
+        </div>
+      </div>`;
+    card.querySelector('.prompt-card-head').onclick = function(e) {
+      if(e.target.closest('.copy-btn')) return;
+      const body = document.getElementById('pb-'+p.id);
+      const chev = document.getElementById('chev-'+p.id);
+      const open = body.classList.toggle('open');
+      chev.classList.toggle('open', open);
+    };
+    container.appendChild(card);
+  });
+}
+
+function copyPrompt(id, btn) {
+  const text = document.getElementById('pt-'+id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '\u2713 Copied!';
+    setTimeout(() => btn.innerHTML = '&#128203; Copy prompt', 2000);
+  });
+}
+
+// ─── SETUP ───────────────────────────────────────────────────
+function renderSetup() {
+  const out = document.getElementById('setup-output');
+  out.innerHTML = '';
+  SETUPS.forEach((s,i) => {
+    const card = document.createElement('div');
+    card.className = 'guide-card';
+    let stepsHTML = '';
+    s.steps.forEach((st,j) => {
+      stepsHTML += `<div class="step-row">
+        <div class="step-num">${j+1}</div>
+        <div class="step-content">
+          <div class="step-title">${st.title}</div>
+          <div class="step-desc">${st.desc}</div>
+          ${st.code ? `<div class="step-code">${st.code.replace(/</g,'&lt;')}</div>` : ''}
+        </div>
+      </div>`;
+    });
+    card.innerHTML = `
+      <div class="guide-head" onclick="toggleGuide(this)">
+        <div class="guide-icon">${s.icon}</div>
+        <div class="guide-info">
+          <div class="guide-title">${s.title}</div>
+          <div class="guide-meta">~${s.time} setup &middot; ${s.steps.length} steps</div>
+        </div>
+        <span class="guide-arrow">&#9654;</span>
+      </div>
+      <div class="guide-body">
+        <div class="guide-intro">${s.desc}</div>
+        ${stepsHTML}
+      </div>`;
+    out.appendChild(card);
+  });
+}
+
+function toggleGuide(head) {
+  const body = head.nextElementSibling;
+  const arrow = head.querySelector('.guide-arrow');
+  const open = body.classList.toggle('open');
+  arrow.classList.toggle('open', open);
+}
+
+// ─── SCENARIOS ───────────────────────────────────────────────
+function renderScenarios() {
+  const sorted = [...SCENARIOS].sort((a,b) => {
+    const am = (a.biz===selectedBiz?2:0) + (a.pain===selectedPain?1:0);
+    const bm = (b.biz===selectedBiz?2:0) + (b.pain===selectedPain?1:0);
+    return bm - am;
+  });
+  const top = sorted[0];
+  if(top) {
+    document.getElementById('scenario-banner').style.display = 'flex';
+    document.getElementById('scenario-banner-text').textContent =
+      'The "'+top.industry+'" scenario matches your profile most closely \u2014 it\'s shown first.';
+  }
+  const out = document.getElementById('scenarios-output');
+  out.innerHTML = '';
+  sorted.forEach((s,i) => {
+    const isMatch = s.biz===selectedBiz || s.pain===selectedPain;
+    out.innerHTML += `<div class="scenario-card">
+      <div class="sc-header">
+        <span class="sc-industry">${s.industry}</span>
+        <span class="sc-role">${s.role}</span>
+        ${isMatch && i<3 ? '<span class="sc-match">Close match</span>' : ''}
+      </div>
+      <div class="sc-body">
+        <div class="sc-col before"><div class="sc-col-head">Before</div><div class="sc-text">${s.before}</div></div>
+        <div class="sc-col after"><div class="sc-col-head">After AI</div><div class="sc-text">${s.after}</div></div>
+      </div>
+      <div class="sc-result">
+        <span class="sc-result-check">&#10003;</span>
+        <span class="sc-result-text"><strong>Result:</strong> ${s.result}</span>
+      </div>
+    </div>`;
+  });
+}
+</script>
+</body>
+</html>
