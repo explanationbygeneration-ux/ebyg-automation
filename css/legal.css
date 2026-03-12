@@ -1,0 +1,80 @@
+/* ============================================================
+   Legal Pages — Privacy Policy & Terms of Service
+   ============================================================ */
+
+.legal-page {
+  padding-top: calc(var(--header-h) + 3rem);
+  padding-bottom: 4rem;
+}
+
+.legal-page .container {
+  max-width: 800px;
+}
+
+.legal-page h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-updated {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.legal-page h2 {
+  font-size: 1.4rem;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.legal-page h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.legal-page h3 {
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.legal-page p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+}
+
+.legal-page ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.legal-page li {
+  list-style: disc;
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.legal-page li strong {
+  color: var(--dark);
+}
+
+.legal-page a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-page a:hover {
+  color: var(--accent);
+}
+
+/* Simplified footer on legal pages */
+.legal-page + .site-footer {
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
