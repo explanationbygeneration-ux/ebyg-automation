@@ -1,0 +1,382 @@
+/* ============================================================
+   EBYG Automation — Checkout Pages
+   Shared styles for product checkout landing pages
+   ============================================================ */
+
+/* ---------- CHECKOUT HERO ---------- */
+.checkout-hero {
+  padding: 8rem 0 4rem;
+  background: linear-gradient(135deg, var(--dark) 0%, #2a2a4e 100%);
+  color: var(--white);
+  text-align: center;
+}
+.checkout-hero .section-tag {
+  color: rgba(255,255,255,0.6);
+}
+.checkout-hero h1 {
+  color: var(--white);
+  font-size: 2.8rem;
+  margin-bottom: 0.75rem;
+}
+.checkout-hero .checkout-price {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.checkout-hero .checkout-price .price-old {
+  font-size: 1.4rem;
+  text-decoration: line-through;
+  opacity: 0.5;
+  margin-right: 0.5rem;
+  font-weight: 400;
+}
+.checkout-hero .checkout-tagline {
+  font-size: 1.15rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.checkout-level-badge {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+}
+.checkout-level-badge.level-1 {
+  background: rgba(10,79,138,0.25);
+  color: #7cb8e8;
+  border: 1px solid rgba(10,79,138,0.4);
+}
+.checkout-level-badge.level-2 {
+  background: rgba(124,58,237,0.25);
+  color: #c4b5fd;
+  border: 1px solid rgba(124,58,237,0.4);
+}
+.checkout-level-badge.level-3 {
+  background: rgba(199,85,59,0.25);
+  color: #f0a899;
+  border: 1px solid rgba(199,85,59,0.4);
+}
+
+/* ---------- MAIN CHECKOUT LAYOUT ---------- */
+.checkout-body {
+  padding: 4rem 0;
+  background: var(--light);
+}
+.checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 3rem;
+  align-items: start;
+}
+
+/* ---------- LEFT: PRODUCT DETAILS ---------- */
+.checkout-details h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+}
+.checkout-details h3 {
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+.checkout-details h3:first-child {
+  margin-top: 0;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+.feature-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.feature-item.level-1 svg { color: var(--primary); }
+.feature-item.level-2 svg { color: var(--purple); }
+.feature-item.level-3 svg { color: var(--accent); }
+
+.feature-item span {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.feature-tier-label {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+.feature-tier-label.tier-1 {
+  background: rgba(10,79,138,0.1);
+  color: var(--primary);
+}
+.feature-tier-label.tier-2 {
+  background: var(--purple-light);
+  color: var(--purple);
+}
+.feature-tier-label.tier-3 {
+  background: rgba(199,85,59,0.1);
+  color: var(--accent);
+}
+
+/* ---------- RIGHT: CHECKOUT CARD ---------- */
+.checkout-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  position: sticky;
+  top: calc(var(--header-h) + 2rem);
+}
+.checkout-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.25rem;
+  margin-top: 0;
+}
+.checkout-card .card-price {
+  font-family: var(--font-heading);
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+.checkout-card .card-desc {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+.checkout-card .card-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1.25rem 0;
+}
+.checkout-card .card-includes {
+  margin-bottom: 1.5rem;
+}
+.checkout-card .card-includes h4 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-light);
+  margin-bottom: 0.75rem;
+}
+.checkout-card .card-includes li {
+  font-size: 0.9rem;
+  padding: 0.35rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.checkout-card .card-includes li svg {
+  width: 16px;
+  height: 16px;
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+/* Buy button */
+.checkout-btn {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.checkout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  color: var(--white);
+}
+.checkout-btn.btn-level-1 {
+  background: var(--primary);
+}
+.checkout-btn.btn-level-1:hover { background: var(--primary-dark); }
+.checkout-btn.btn-level-2 {
+  background: var(--purple);
+}
+.checkout-btn.btn-level-2:hover { background: #6d28d9; }
+.checkout-btn.btn-level-3 {
+  background: var(--accent);
+}
+.checkout-btn.btn-level-3:hover { background: var(--accent-hover); }
+
+.checkout-guarantee {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  justify-content: center;
+}
+.checkout-guarantee svg {
+  width: 16px;
+  height: 16px;
+  color: #22c55e;
+}
+
+/* ---------- TRUST STRIP ---------- */
+.checkout-trust {
+  padding: 3rem 0;
+  background: var(--white);
+  border-top: 1px solid var(--border);
+}
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+.trust-block svg {
+  width: 32px;
+  height: 32px;
+  color: var(--primary);
+  margin: 0 auto 0.75rem;
+}
+.trust-block h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+.trust-block p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* ---------- FAQ SECTION ---------- */
+.checkout-faq {
+  padding: 4rem 0;
+  background: var(--light);
+}
+.checkout-faq .section-center {
+  margin-bottom: 2.5rem;
+}
+.faq-list {
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--dark);
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+.faq-question svg {
+  width: 20px;
+  height: 20px;
+  transition: transform var(--transition);
+  flex-shrink: 0;
+  color: var(--text-light);
+}
+.faq-item.open .faq-question svg {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  padding: 0 1.25rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.faq-item.open .faq-answer {
+  max-height: 300px;
+  padding: 0 1.25rem 1.25rem;
+}
+.faq-answer p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  line-height: 1.65;
+}
+
+/* ---------- BOTTOM CTA ---------- */
+.checkout-bottom-cta {
+  padding: 4rem 0;
+  background: var(--white);
+  text-align: center;
+}
+.checkout-bottom-cta h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.75rem;
+}
+.checkout-bottom-cta p {
+  color: var(--text-light);
+  max-width: 550px;
+  margin: 0 auto 1.5rem;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+  .checkout-card {
+    position: static;
+  }
+}
+@media (max-width: 700px) {
+  .checkout-hero {
+    padding: 6rem 0 3rem;
+  }
+  .checkout-hero h1 {
+    font-size: 2rem;
+  }
+  .checkout-hero .checkout-price {
+    font-size: 2.2rem;
+  }
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .checkout-body {
+    padding: 2.5rem 0;
+  }
+}
