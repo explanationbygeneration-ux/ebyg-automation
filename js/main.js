@@ -63,6 +63,7 @@
       '.support-text', '.support-price-card',
       '.advantage-content', '.advantage-point',
       '.cta-content', '.cta-form-wrap',
+      '.web-card', '.web-services-bottom',
       '.section-center'
     ];
     selectors.forEach(function (sel) {

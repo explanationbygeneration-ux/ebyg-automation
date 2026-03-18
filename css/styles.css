@@ -37,7 +37,7 @@
 
 /* ---------- RESET ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); overflow-x: hidden; }
 body {
   font-family: var(--font-body);
   font-size: 17px;
@@ -45,6 +45,7 @@ body {
   color: var(--text);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
 a { color: var(--primary); text-decoration: none; transition: color var(--transition); }
@@ -128,6 +129,7 @@ blockquote {
 }
 .btn-sm { padding: 0.65rem 1.5rem; font-size: 0.88rem; }
 .btn-full { width: 100%; }
+.btn { -webkit-tap-highlight-color: transparent; }
 
 /* ---------- HEADER ---------- */
 .site-header {
@@ -167,7 +169,7 @@ blockquote {
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 .nav-list a {
   font-family: var(--font-heading);
@@ -1138,7 +1140,26 @@ blockquote {
   .friction-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
   h1 { font-size: 2.2rem; }
   h2 { font-size: 1.75rem; }
+  .lead { font-size: 1.05rem; }
   .hero-content { padding: 3rem 0; }
+  .hero h1 br { display: none; }
+  .hero-sub { font-size: 1.05rem; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .hero-actions .btn { width: 100%; text-align: center; }
+
+  /* Section padding reduction */
+  .about, .friction, .ecosystem, .products, .services,
+  .support, .how-it-works, .industries, .advantage,
+  .cta-section, .web-services { padding: 4rem 0; }
+  .section-center { margin-bottom: 2.5rem; }
+
+  /* CTA form */
+  .cta-form-wrap { padding: 1.75rem; }
+  .cta-content h2 { font-size: 1.75rem; }
+
+  /* Support price card */
+  .support-price { font-size: 1.75rem; }
+  .support-price-card { padding: 2rem 1.5rem; }
 
   /* Mobile nav */
   .mobile-toggle { display: flex; }
@@ -1167,8 +1188,11 @@ blockquote {
 @media (max-width: 544px) {
   .container { padding: 0 1.25rem; }
   h1 { font-size: 1.9rem; }
+  h2 { font-size: 1.5rem; }
+  .lead { font-size: 1rem; }
   .hero { min-height: auto; padding-top: calc(var(--header-h) + 2rem); padding-bottom: 4rem; }
   .hero-scroll { display: none; }
+  .hero-sub { font-size: 1rem; }
   .trust-items { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .trust-number { font-size: 1.5rem; }
   .steps-grid { grid-template-columns: 1fr; }
@@ -1177,4 +1201,24 @@ blockquote {
   .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
   .jeong-card { padding: 2.5rem 2rem; }
   .jeong-symbol { font-size: 3.5rem; }
+
+  /* Section padding further reduced */
+  .about, .friction, .ecosystem, .products, .services,
+  .support, .how-it-works, .industries, .advantage,
+  .cta-section, .web-services { padding: 3rem 0; }
+  .section-center { margin-bottom: 2rem; }
+
+  /* Cards & form */
+  .product-card, .service-card, .web-card { padding: 2rem 1.5rem; }
+  .cta-form-wrap { padding: 1.5rem 1.25rem; }
+  .cta-box { gap: 2.5rem; }
+  .support-layout { gap: 2.5rem; }
+  .advantage-inner { gap: 2.5rem; }
+
+  /* Buttons full-width on small screens */
+  .product-card .btn, .service-card .btn { width: 100%; text-align: center; }
+  .web-services-bottom .btn { width: 100%; }
+
+  /* Ecosystem cards */
+  .eco-brand { padding: 2rem 1.5rem; }
 }
