@@ -1047,6 +1047,58 @@ blockquote {
 .scroll-top:hover { background: var(--accent); }
 .scroll-top svg { width: 20px; height: 20px; }
 
+/* ---------- WEB SERVICES ---------- */
+.web-services {
+  padding: 6rem 0;
+  background: var(--light);
+}
+.web-services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 3rem;
+}
+.web-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.web-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+.web-icon {
+  width: 48px;
+  height: 48px;
+  color: var(--primary);
+  margin-bottom: 1.25rem;
+}
+.web-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.web-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+.web-card p {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  line-height: 1.65;
+}
+.web-services-bottom {
+  text-align: center;
+  margin-top: 3rem;
+}
+.web-services-bottom p {
+  max-width: 700px;
+  margin: 0 auto 1.5rem;
+  font-size: 1.05rem;
+}
+
 /* ---------- ANIMATIONS (scroll reveal) ---------- */
 .reveal {
   opacity: 0;
@@ -1068,6 +1120,7 @@ blockquote {
   .friction-grid { grid-template-columns: repeat(2, 1fr); }
   .products-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
   .services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+  .web-services-grid { grid-template-columns: 1fr; max-width: 480px; margin: 2rem auto 0; }
   .steps-grid { grid-template-columns: repeat(2, 1fr); }
   .industries-grid { grid-template-columns: repeat(2, 1fr); }
   .support-layout { grid-template-columns: 1fr; }
