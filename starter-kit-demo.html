@@ -9,13 +9,1076 @@
   <meta property="og:description" content="13 curated AI tools, 20+ ready-to-use prompts, setup guides, and real business scenarios.">
   <meta property="og:site_name" content="EBYG Automation">
   <meta property="og:locale" content="en_US">
+  <link rel="icon" type="image/png" href="favicon.png">
   <title>AI Starter Kit — EBYG Automation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/kit.css">
-  <link rel="icon" type="image/png" href="favicon.png">
+<style>
+/* ============================================================
+   EBYG Automation — Starter Kit Demo
+   Design: restrained, typographic, calm. No decoration for
+   decoration's sake. Let whitespace and hierarchy do the work.
+   ============================================================ */
+
+:root {
+  --primary: #0a4f8a;
+  --primary-dark: #083d6b;
+  --primary-light: #1a6fb8;
+  --accent: #c7553b;
+  --accent-hover: #a8432d;
+  --dark: #141726;
+  --text: #1e2028;
+  --text-light: #5e6272;
+  --light: #f5f6f8;
+  --white: #ffffff;
+  --border: #e3e5ea;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+  --max-width: 1200px;
+  --header-h: 72px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { color: var(--primary-dark); }
+ul { list-style: none; }
+button { font-family: inherit; }
+
+/* --- Utilities --- */
+.container { width: 100%; max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
+
+/* --- Header --- */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: var(--header-h);
+  background: var(--white);
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+}
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 100%; }
+.logo { display: flex; align-items: baseline; gap: 0.3rem; font-family: var(--font-heading); text-decoration: none; }
+.logo-ebyg { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+.logo-auto { font-size: 1rem; font-weight: 500; color: var(--text-light); }
+.nav-list { display: flex; align-items: center; gap: 2rem; }
+.nav-list a { font-family: var(--font-heading); font-size: 0.85rem; font-weight: 500; color: var(--text-light); }
+.nav-list a:hover { color: var(--text); }
+.nav-cta { background: var(--primary); color: var(--white) !important; padding: 0.5rem 1.1rem; border-radius: var(--radius-sm); }
+.nav-cta:hover { background: var(--primary-dark); color: var(--white) !important; }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+.mobile-toggle span { width: 24px; height: 2px; background: var(--dark); border-radius: 1px; }
+
+/* --- Footer --- */
+.site-footer { background: var(--dark); color: rgba(255,255,255,0.65); padding: 3.5rem 0 0; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer-brand p { font-size: 0.9rem; margin-top: 0.75rem; line-height: 1.6; }
+.footer-division { font-size: 0.8rem; opacity: 0.4; margin-top: 0.75rem !important; }
+.footer-brand .logo-ebyg { color: var(--white); }
+.footer-brand .logo-auto { color: rgba(255,255,255,0.45); }
+.footer-links h4 { color: var(--white); font-family: var(--font-heading); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem; }
+.footer-links li { margin-bottom: 0.5rem; }
+.footer-links a { color: rgba(255,255,255,0.5); font-size: 0.88rem; }
+.footer-links a:hover { color: rgba(255,255,255,0.85); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; font-size: 0.82rem; }
+.footer-legal { display: flex; gap: 1.5rem; }
+.footer-legal a { color: rgba(255,255,255,0.4); }
+.footer-legal a:hover { color: rgba(255,255,255,0.7); }
+
+
+/* ============================================================
+   UNLOCK SCREEN
+   Feel: quiet room, one clear action. No decoration.
+   ============================================================ */
+
+#unlock-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--dark);
+}
+.unlock-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+}
+.unlock-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 3rem;
+}
+.unlock-logo-mark {
+  width: 32px; height: 32px;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+}
+.unlock-logo-mark svg { width: 16px; height: 16px; fill: #fff; }
+.unlock-logo-text {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.01em;
+}
+.unlock-logo-text span { color: rgba(255,255,255,0.45); font-weight: 500; }
+
+.unlock-card {
+  width: 100%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  padding: 2.5rem 2.5rem 2rem;
+  text-align: center;
+}
+.unlock-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 1.5rem;
+}
+.unlock-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.unlock-subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+.key-input-wrap { margin-bottom: 1rem; }
+.key-input {
+  width: 100%;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  font-family: 'Courier New', monospace;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  color: #fff;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.key-input::placeholder { color: rgba(255,255,255,0.18); letter-spacing: 0.05em; font-size: 13px; }
+.key-input:focus { border-color: rgba(255,255,255,0.25); }
+.key-input.error { border-color: #e05252; }
+.key-input.success { border-color: #3da87a; }
+
+.unlock-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.unlock-btn:hover { background: var(--primary-dark); }
+.unlock-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+.unlock-msg {
+  margin-top: 0.75rem;
+  font-size: 13px;
+  min-height: 20px;
+  font-weight: 500;
+}
+.unlock-msg.error { color: #f5a3a3; }
+.unlock-msg.success { color: #6ee7b7; }
+.unlock-msg.loading { color: rgba(255,255,255,0.5); }
+
+.unlock-footer {
+  font-size: 12px;
+  color: rgba(255,255,255,0.18);
+  margin-top: 1.75rem;
+  line-height: 1.7;
+}
+.unlock-footer a { color: rgba(255,255,255,0.3); }
+.unlock-footer a:hover { color: rgba(255,255,255,0.5); }
+
+.features-row {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+.feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 400;
+}
+.feature-pill .dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+}
+
+
+/* ============================================================
+   KIT APP SHELL
+   ============================================================ */
+
+body.kit-active .site-header,
+body.kit-active .site-footer { display: none; }
+
+#kit-screen { display: none; }
+
+.kit-topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--dark);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 56px;
+}
+.kit-topbar-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.9);
+}
+.kit-topbar-logo-mark {
+  width: 26px; height: 26px;
+  background: var(--primary);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #fff;
+}
+.kit-topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,0.1); }
+.kit-topbar-kit { font-size: 12px; color: rgba(255,255,255,0.4); font-weight: 400; }
+.kit-topbar-spacer { flex: 1; }
+.kit-topbar-user { font-size: 11px; color: rgba(255,255,255,0.25); font-family: 'Courier New', monospace; letter-spacing: 0.04em; }
+.progress-wrap { flex: 1; max-width: 140px; }
+.progress-track { height: 2px; background: rgba(255,255,255,0.07); border-radius: 1px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--primary-light); border-radius: 1px; transition: width 0.4s ease; }
+
+.kit-layout { display: flex; min-height: calc(100vh - 56px); }
+
+
+/* ============================================================
+   SIDEBAR
+   Feel: OS-level navigation. Quiet, obvious, no decoration.
+   ============================================================ */
+
+.kit-sidebar {
+  width: 232px;
+  flex-shrink: 0;
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  padding: 1.25rem 0;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+.sidebar-section { margin-bottom: 0.25rem; }
+.sidebar-label {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  padding: 1rem 1.25rem 0.4rem;
+  opacity: 0.6;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 1.25rem;
+  font-family: var(--font-body);
+  font-size: 13.5px;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  border-left: 2px solid transparent;
+}
+.nav-item:hover { color: var(--text); background: var(--light); }
+.nav-item.active {
+  color: var(--primary);
+  background: rgba(10,79,138,0.04);
+  border-left-color: var(--primary);
+  font-weight: 600;
+}
+.nav-icon { width: 16px; opacity: 0.45; flex-shrink: 0; font-size: 14px; }
+.nav-item.active .nav-icon { opacity: 0.8; }
+.nav-badge {
+  margin-left: auto;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  color: var(--text-light);
+  padding: 1px 6px;
+  border-radius: 8px;
+  font-weight: 500;
+  background: var(--light);
+}
+
+.sidebar-profile {
+  margin: 0 0.75rem 1rem;
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+.sidebar-biz { font-size: 12px; font-weight: 600; color: #fff; margin-bottom: 2px; }
+.sidebar-pain { font-size: 11px; color: rgba(255,255,255,0.45); }
+.sidebar-change {
+  font-size: 11px;
+  color: rgba(255,255,255,0.2);
+  cursor: pointer;
+  margin-top: 6px;
+  display: inline-block;
+}
+.sidebar-change:hover { color: rgba(255,255,255,0.5); }
+
+
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+
+.kit-main { flex: 1; overflow-y: auto; }
+
+.panel { display: none; padding: 2.5rem; max-width: 880px; }
+.panel.active { display: block; }
+
+
+/* ============================================================
+   ONBOARDING
+   Feel: clear, confident, one-thing-at-a-time.
+   ============================================================ */
+
+.onboard-hero {
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  color: #fff;
+  margin-bottom: 2rem;
+}
+.oh-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+.oh-title {
+  font-family: var(--font-heading);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+.oh-sub {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.65;
+  max-width: 480px;
+}
+
+.q-section { margin-bottom: 1.75rem; }
+.q-label {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  padding: 9px 16px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 13.5px;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--text-light);
+  transition: all 0.15s;
+  font-family: var(--font-body);
+}
+.pill:hover { border-color: var(--text-light); color: var(--text); }
+.pill.on {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 500;
+}
+
+.launch-btn {
+  padding: 12px 28px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.launch-btn:hover { background: var(--primary-dark); }
+.launch-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+
+.kit-section-head { margin-bottom: 1.5rem; }
+.kit-section-head h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.3rem;
+}
+.kit-section-head p {
+  font-size: 14px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   PERSONALIZED BANNER
+   ============================================================ */
+
+.p-banner {
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.55;
+}
+.p-banner .icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; color: var(--primary); }
+
+
+/* ============================================================
+   TOOL CARDS
+   Restrained. Let the content speak. One treatment per card.
+   ============================================================ */
+
+.tools-section-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin: 1.25rem 0 0.6rem;
+}
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+.tool-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  transition: border-color 0.15s;
+}
+.tool-card:hover { border-color: #c0c4cc; }
+.tool-card.top { border-left: 3px solid var(--primary); }
+.top-tag {
+  position: absolute; top: -1px; right: 12px;
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px 3px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  letter-spacing: 0.03em;
+  /* Hidden — the left border already signals "recommended". */
+  display: none;
+}
+.tool-name {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.tool-cost { font-size: 12px; color: var(--text-light); font-weight: 400; margin-bottom: 6px; }
+.stars { font-size: 11px; color: #d4a843; margin: 0 0 8px; letter-spacing: -0.5px; opacity: 0.7; }
+.tool-desc { font-size: 13px; color: var(--text-light); line-height: 1.55; margin-bottom: 12px; }
+.tool-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.tool-badge {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-light);
+  font-weight: 400;
+}
+.tool-link {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.15s;
+  white-space: nowrap;
+}
+.tool-link:hover { border-color: var(--primary); }
+
+
+/* ============================================================
+   PROMPT LIBRARY
+   ============================================================ */
+
+.search-row { display: flex; gap: 8px; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+.kit-search-inp {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--text);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.kit-search-inp:focus { border-color: var(--primary); }
+.chip {
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12.5px;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--text-light);
+  transition: all 0.15s;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.chip:hover { border-color: var(--text-light); color: var(--text); }
+.chip.on {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 500;
+}
+
+.prompt-count { font-size: 12px; color: var(--text-light); margin-bottom: 0.75rem; }
+.prompt-list { display: flex; flex-direction: column; gap: 6px; }
+
+.prompt-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  border-left: 3px solid var(--border);
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.prompt-card:hover { border-color: #c0c4cc; }
+.prompt-card.ops { border-left-color: #2d8a62; }
+.prompt-card.sales { border-left-color: var(--primary); }
+.prompt-card.admin { border-left-color: #6d3ac7; }
+.prompt-card.finance { border-left-color: #b27718; }
+.prompt-card-head {
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.prompt-meta { flex: 1; }
+.prompt-cat-tag {
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+  color: var(--text-light);
+}
+.prompt-cat-tag.ops { color: #2d8a62; }
+.prompt-cat-tag.sales { color: var(--primary); }
+.prompt-cat-tag.admin { color: #6d3ac7; }
+.prompt-cat-tag.finance { color: #b27718; }
+.prompt-title { font-family: var(--font-heading); font-size: 13.5px; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+.prompt-preview { font-size: 13px; color: var(--text-light); line-height: 1.5; }
+.chevron { font-size: 14px; color: var(--text-light); transition: transform 0.2s; flex-shrink: 0; margin-top: 3px; opacity: 0.5; }
+.chevron.open { transform: rotate(180deg); }
+
+.prompt-body { display: none; padding: 0 16px 16px; }
+.prompt-body.open { display: block; }
+.prompt-text {
+  font-family: 'Courier New', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin: 0 0 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.copy-row { display: flex; align-items: center; gap: 10px; }
+.copy-btn {
+  display: flex; align-items: center; gap: 5px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  background: var(--white);
+  color: var(--text-light);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  font-family: var(--font-body);
+}
+.copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+.why-tag { font-size: 12px; color: var(--text-light); line-height: 1.5; flex: 1; }
+
+
+/* ============================================================
+   SETUP GUIDES
+   ============================================================ */
+
+.guide-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.guide-head {
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.guide-head:hover { background: var(--light); }
+.guide-icon {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--dark);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+}
+.guide-info { flex: 1; }
+.guide-title { font-family: var(--font-heading); font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.guide-meta { font-size: 12px; color: var(--text-light); }
+.guide-arrow { font-size: 13px; color: var(--text-light); transition: transform 0.2s; opacity: 0.5; }
+.guide-arrow.open { transform: rotate(90deg); }
+.guide-body { display: none; padding: 0 18px 18px; border-top: 1px solid var(--border); }
+.guide-body.open { display: block; }
+.guide-intro { font-size: 13.5px; color: var(--text-light); line-height: 1.6; padding: 14px 0; border-bottom: 1px solid var(--light); margin-bottom: 4px; }
+.step-row { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--light); }
+.step-row:last-child { border-bottom: none; }
+.step-num {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--light);
+  color: var(--text-light);
+  font-family: var(--font-heading);
+  font-size: 11px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+}
+.step-content { flex: 1; }
+.step-title { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.step-desc { font-size: 13px; color: var(--text-light); line-height: 1.55; }
+.step-code {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-top: 8px;
+  color: var(--text);
+  white-space: pre-wrap;
+}
+.step-code strong { color: var(--primary); font-weight: 600; }
+
+
+/* ============================================================
+   SCENARIOS
+   Clean before/after. Let the story sell.
+   ============================================================ */
+
+.scenario-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.sc-header {
+  background: var(--dark);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sc-industry { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.85); }
+.sc-role { font-size: 11px; color: rgba(255,255,255,0.35); }
+.sc-match {
+  font-family: var(--font-heading);
+  font-size: 10px; font-weight: 500;
+  color: rgba(255,255,255,0.45);
+  padding: 2px 8px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 999px;
+}
+.sc-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+.sc-col { background: var(--white); padding: 16px 18px; }
+.sc-col-head {
+  font-family: var(--font-heading);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.sc-col.before .sc-col-head { color: #c04040; }
+.sc-col.after .sc-col-head { color: #2d8a62; }
+.sc-text { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+.sc-result {
+  background: #edf7f1;
+  padding: 12px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.sc-result-check { color: #2d8a62; font-size: 13px; flex-shrink: 0; margin-top: 1px; font-weight: 600; }
+.sc-result-text { font-size: 13px; color: #1a5c3a; line-height: 1.5; }
+
+
+/* ============================================================
+   UPGRADE
+   Clean cards. Let the offer speak.
+   ============================================================ */
+
+.upgrade-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 1.75rem;
+}
+.upgrade-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  position: relative;
+  transition: border-color 0.15s;
+}
+.upgrade-card:hover { border-color: #c0c4cc; }
+.upgrade-card.featured { border-color: var(--primary); }
+.upgrade-badge {
+  position: absolute;
+  top: -1px; right: 14px;
+  background: var(--primary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  letter-spacing: 0.03em;
+}
+.upgrade-level {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+.upgrade-title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+.upgrade-price {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+.upgrade-desc {
+  font-size: 13.5px;
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.upgrade-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+}
+.upgrade-features li {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+  padding: 4px 0 4px 20px;
+  position: relative;
+}
+.upgrade-features li::before {
+  content: '\2713';
+  position: absolute;
+  left: 0;
+  color: #2d8a62;
+  font-weight: 600;
+  font-size: 12px;
+}
+.upgrade-features li.upgrade-included {
+  color: var(--primary);
+  font-weight: 600;
+  font-style: italic;
+  margin-bottom: 2px;
+}
+.upgrade-features li.upgrade-included::before { content: '\25CF'; color: var(--primary); }
+.upgrade-features li.upgrade-bonus { color: var(--primary); font-weight: 500; }
+.upgrade-features li.upgrade-bonus::before { content: '\2605'; color: var(--accent); }
+.upgrade-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--white);
+  text-decoration: none;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.upgrade-btn:hover { background: rgba(10,79,138,0.04); }
+.upgrade-btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+.upgrade-btn.primary:hover { background: var(--primary-dark); }
+.upgrade-note {
+  font-size: 13.5px;
+  color: var(--text-light);
+  line-height: 1.6;
+  padding: 1rem 1.25rem;
+  background: var(--light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.upgrade-note a { color: var(--primary); font-weight: 600; }
+.upgrade-note a:hover { text-decoration: underline; }
+
+
+/* ============================================================
+   AUDIT CTA
+   ============================================================ */
+
+.audit-hero {
+  background: var(--dark);
+  border-radius: var(--radius);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
+.audit-eyebrow {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+.audit-title {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.audit-sub {
+  font-size: 14.5px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.7;
+  max-width: 440px;
+  margin: 0 auto 2rem;
+}
+.audit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  background: var(--white);
+  color: var(--dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.audit-btn:hover { opacity: 0.88; }
+.audit-note { font-size: 12px; color: rgba(255,255,255,0.25); margin-top: 1rem; }
+.audit-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.audit-step {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+.as-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--light);
+  color: var(--text-light);
+  font-family: var(--font-heading);
+  font-size: 12px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+}
+.as-title { font-family: var(--font-heading); font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.as-desc { font-size: 12.5px; color: var(--text-light); line-height: 1.55; }
+
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+
+.spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: kit-spin 0.7s linear infinite;
+}
+@keyframes kit-spin { to { transform: rotate(360deg); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.fade-up { animation: fadeUp 0.3s ease forwards; }
+
+/* Focus — keyboard only, not mouse */
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+:focus:not(:focus-visible) { outline: none; }
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .mobile-toggle { display: flex; }
+  .main-nav {
+    position: fixed; top: var(--header-h); left: 0; right: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 2rem;
+    transform: translateY(-110%);
+    transition: transform 0.3s ease;
+  }
+  .main-nav.open { transform: translateY(0); }
+  .nav-list { flex-direction: column; gap: 0.75rem; align-items: flex-start; }
+}
+
+@media (max-width: 700px) {
+  .kit-sidebar { display: none; }
+  .sc-body { grid-template-columns: 1fr; }
+  .audit-steps { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
+  .upgrade-cards { grid-template-columns: 1fr; }
+  .panel { padding: 1.5rem; }
+  .kit-topbar { padding: 0 1rem; }
+  .unlock-card { padding: 2rem 1.5rem; }
+  .unlock-title { font-size: 24px; }
+  .onboard-hero { padding: 2rem 1.5rem; }
+  .oh-title { font-size: 22px; }
+  .audit-hero { padding: 2.5rem 1.5rem; }
+  .audit-title { font-size: 24px; }
+  .features-row { gap: 1rem; }
+  .feature-pill { font-size: 11px; }
+}
+
+@media (max-width: 544px) {
+  .container { padding: 0 1.25rem; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+}
+</style>
 </head>
 <body>
 
@@ -55,8 +1118,8 @@
 
     <div class="unlock-card">
       <div class="unlock-eyebrow">AI Starter Kit</div>
-      <div class="unlock-title">Enter your<br>license key</div>
-      <div class="unlock-subtitle">Your key was displayed at checkout and emailed to you. It looks like EBYG-XXXX-XXXX-XXXX.</div>
+      <div class="unlock-title">Unlock your toolkit</div>
+      <div class="unlock-subtitle">Enter the key from your purchase confirmation.<br>Format: EBYG-XXXX-XXXX-XXXX</div>
 
       <div class="key-input-wrap">
         <input
@@ -72,20 +1135,20 @@
         >
       </div>
       <button class="unlock-btn" id="unlock-btn" onclick="validateKey()">
-        <span id="unlock-btn-text">Unlock my kit</span>
+        <span id="unlock-btn-text">Unlock</span>
       </button>
       <div class="unlock-msg" id="unlock-msg"></div>
       <div class="unlock-footer">
         Lost your key? <a href="mailto:info@ebygautomation.com">info@ebygautomation.com</a><br>
-        A product of EBYG Automation &middot; ebygautomation.com
+        EBYG Automation &middot; ebygautomation.com
       </div>
     </div>
 
     <div class="features-row">
-      <div class="feature-pill"><span class="dot"></span>13 curated AI tools</div>
-      <div class="feature-pill"><span class="dot"></span>100+ ready-to-use prompts</div>
+      <div class="feature-pill"><span class="dot"></span>13 AI tools</div>
+      <div class="feature-pill"><span class="dot"></span>100+ prompts</div>
       <div class="feature-pill"><span class="dot"></span>3 setup guides</div>
-      <div class="feature-pill"><span class="dot"></span>8 real business scenarios</div>
+      <div class="feature-pill"><span class="dot"></span>8 business scenarios</div>
     </div>
   </div>
 </div>
@@ -154,9 +1217,9 @@
       <!-- ONBOARD PANEL -->
       <div class="panel active" id="panel-onboard">
         <div class="onboard-hero">
-          <div class="oh-eyebrow">Step 1 of 1</div>
-          <div class="oh-title">Personalize your kit.</div>
-          <div class="oh-sub">Two answers and this entire kit reconfigures — your top tools, your prompts, your most relevant scenarios.</div>
+          <div class="oh-eyebrow">Get started</div>
+          <div class="oh-title">Make it yours.</div>
+          <div class="oh-sub">Two answers. Your tools, prompts, and scenarios reconfigure to match.</div>
         </div>
         <div class="q-section">
           <div class="q-label">What type of business do you run?</div>
@@ -190,7 +1253,7 @@
       <div class="panel" id="panel-tools">
         <div class="kit-section-head">
           <h2>Your Top Tools</h2>
-          <p>13 curated AI tools across all four business functions. The highlighted ones are matched to your friction area.</p>
+          <p>13 AI tools across four business functions. Highlighted tools match your friction area.</p>
         </div>
         <div id="tools-banner" class="p-banner" style="display:none">
           <span class="icon">&#9733;</span>
@@ -203,7 +1266,7 @@
       <div class="panel" id="panel-prompts">
         <div class="kit-section-head">
           <h2>Prompt Library</h2>
-          <p>Copy any prompt, fill in the brackets, and paste into ChatGPT or Claude. You'll have something useful in under 60 seconds.</p>
+          <p>Fill in the brackets, paste into ChatGPT or Claude.</p>
         </div>
         <div class="search-row">
           <input class="kit-search-inp" id="prompt-search" placeholder="Search prompts..." oninput="renderPrompts()">
@@ -221,7 +1284,7 @@
       <div class="panel" id="panel-setup">
         <div class="kit-section-head">
           <h2>Setup Guides</h2>
-          <p>Three tools. Three step-by-step guides. Complete the first one today — you'll be running AI in your business in 20 minutes.</p>
+          <p>Pick one. Complete it today. You'll be running AI in your business in 20 minutes.</p>
         </div>
         <div id="setup-output"></div>
       </div>
@@ -230,7 +1293,7 @@
       <div class="panel" id="panel-scenarios">
         <div class="kit-section-head">
           <h2>Real Business Scenarios</h2>
-          <p>Eight before/after examples from the types of businesses EBYG Automation works with. Your closest match is shown first.</p>
+          <p>Before and after examples from businesses like yours. Closest match shown first.</p>
         </div>
         <div id="scenario-banner" class="p-banner" style="display:none">
           <span class="icon">&#9672;</span>
@@ -243,7 +1306,7 @@
       <div class="panel" id="panel-upgrade">
         <div class="kit-section-head">
           <h2>Ready for More?</h2>
-          <p>You've got the starter tools. These next-level resources give you the frameworks, templates, and systems to build real automation into your business.</p>
+          <p>Frameworks, templates, and systems to build real automation into your business.</p>
         </div>
 
         <div class="upgrade-cards">
@@ -281,7 +1344,7 @@
         </div>
 
         <div class="upgrade-note">
-          Already know what you need? <a href="index.html#contact" target="_blank" rel="noopener">Book a free automation audit</a> and we'll tell you exactly which level fits your business.
+          Already know what you need? <a href="index.html#contact" target="_blank" rel="noopener">Book a free automation audit</a> and we'll tell you exactly which level fits.
         </div>
       </div>
 
@@ -290,11 +1353,11 @@
         <div class="audit-hero">
           <div class="audit-eyebrow">Your next step</div>
           <div class="audit-title">You've got the tools.<br>Now let's build your system.</div>
-          <div class="audit-sub">The Automation Audit is a free 30-minute session where we map your business and identify the 3 automations that would have the biggest impact — right now.</div>
+          <div class="audit-sub">A free 30-minute session. We map your business and identify the 3 automations with the biggest impact.</div>
           <button class="audit-btn" onclick="window.open('https://ebygautomation.com/#contact','_blank')">
             Book your free Audit <span style="font-size:15px">&#8599;</span>
           </button>
-          <div class="audit-note">No pitch. No pressure. Just a clear picture of what to do next.</div>
+          <div class="audit-note">No pitch. No pressure. Just clarity on what to do next.</div>
         </div>
         <div class="audit-steps">
           <div class="audit-step"><div class="as-num">1</div><div class="as-title">Map your four functions</div><div class="as-desc">Operations, sales, admin, and finance — we identify where time is lost and what repeats most.</div></div>
@@ -356,7 +1419,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
 <script>
 // ─── CONFIG ──────────────────────────────────────────────────
 // Replace with your actual Supabase project URL and anon key
@@ -408,48 +1470,48 @@ const PROMPTS = [
   {id:'p14',cat:'admin',title:'Decline a request professionally',preview:'Stay firm without damaging the relationship.',text:'Write a polite but firm email declining [request — e.g. a project, a discount, a scope addition] from [client/vendor]. Reason: [your reason]. I want to preserve the relationship but be clear about my position.',why:'The hardest emails to write are the ones where you say no. AI removes the emotional friction.'},
   {id:'p15',cat:'admin',title:'Create an employee onboarding checklist',preview:'What success looks like in the first 30 days — in seconds.',text:'Create a first-week onboarding checklist for a new [role] at my [type of business]. Include: setup tasks, key people to meet, systems to get access to, and what success looks like in the first 30 days.',why:'A well-onboarded employee reaches full productivity 2–3x faster.'},
   {id:'p16',cat:'finance',title:'Overdue invoice follow-up — 3-email sequence',preview:'Professional escalation without the awkwardness.',text:'Write 3 invoice follow-up emails for a client whose payment is overdue by [X] days. Invoice amount: $[amount]. Each email should escalate slightly in urgency while staying professional. Email 1: gentle reminder. Email 2: firm but patient. Email 3: final notice with consequences.',why:'The hardest part of chasing money is the awkwardness. AI removes the emotion.'},
-  {id:'p17',cat:'finance',title:'Analyze cash flow from raw numbers',preview:'Raw numbers → readable financial narrative.',text:'Here is my revenue and expense data for the past [timeframe]: [paste numbers or a simple table]. Please: (1) identify any patterns or trends, (2) flag any months where expenses are unusually high, (3) give me 3 specific recommendations to improve cash flow based on this data.',why:'Turns raw numbers into a readable narrative without needing an accountant.'},
+  {id:'p17',cat:'finance',title:'Analyze cash flow from raw numbers',preview:'Raw numbers \u2192 readable financial narrative.',text:'Here is my revenue and expense data for the past [timeframe]: [paste numbers or a simple table]. Please: (1) identify any patterns or trends, (2) flag any months where expenses are unusually high, (3) give me 3 specific recommendations to improve cash flow based on this data.',why:'Turns raw numbers into a readable narrative without needing an accountant.'},
   {id:'p18',cat:'finance',title:'Write a price increase notice',preview:'Confident and appreciative — not apologetic.',text:'Write a professional email to existing clients notifying them of a price increase effective [date]. New pricing: [details]. Reason: [brief, honest explanation]. Tone: confident and appreciative — these are clients I value and want to retain.',why:'How you communicate a price increase is almost as important as the increase itself.'},
   {id:'p19',cat:'finance',title:'Evaluate a business expense or investment',preview:'ROI, break-even, and alternatives — in one prompt.',text:'I\'m considering spending $[amount] on [tool/service/hire]. My business generates $[monthly revenue]. Help me think through whether this is a smart investment by analyzing: expected ROI, break-even point, and alternatives I might not have considered.',why:'Forces structured thinking before spending. Often reveals a cheaper path you hadn\'t considered.'},
-  {id:'p20',cat:'finance',title:'Build a KPI tracking list',preview:'The numbers that actually tell you how your business is doing.',text:'I run a [type of business]. Help me identify the 8–10 most important KPIs I should track monthly to understand the health of my business. For each KPI, explain what it measures and how to calculate it.',why:'Most small business owners track the wrong numbers — or none at all. This fixes that in 5 minutes.'},
+  {id:'p20',cat:'finance',title:'Build a KPI tracking list',preview:'The numbers that actually tell you how your business is doing.',text:'I run a [type of business]. Help me identify the 8\u201310 most important KPIs I should track monthly to understand the health of my business. For each KPI, explain what it measures and how to calculate it.',why:'Most small business owners track the wrong numbers \u2014 or none at all. This fixes that in 5 minutes.'},
 ];
 
 const SETUPS = [
-  {icon:'C',title:'Get ChatGPT working for your business',time:'20 min',desc:'Set up with a Custom System Prompt that makes it behave like a business-savvy assistant who knows your company — then build your first real automation.',steps:[
+  {icon:'C',title:'Get ChatGPT working for your business',time:'20 min',desc:'Set up with a Custom System Prompt that makes it behave like a business-savvy assistant who knows your company \u2014 then build your first real automation.',steps:[
     {title:'Create your account',desc:'Go to chat.openai.com and sign up with your business email. Start free, upgrade when you hit the limit (usually within a week).'},
-    {title:'Open Custom Instructions',desc:'Profile icon (bottom left) → Settings → Personalization → Custom Instructions.'},
-    {title:'Paste your business context',desc:'In the first box:',code:'I run [your business type] called [business name]. We serve [who you serve]. My role is [your role]. My biggest operational challenges are [list 2–3 challenges]. Always: use plain business language, be concise and actionable, assume I have limited time.'},
+    {title:'Open Custom Instructions',desc:'Profile icon (bottom left) \u2192 Settings \u2192 Personalization \u2192 Custom Instructions.'},
+    {title:'Paste your business context',desc:'In the first box:',code:'I run [your business type] called [business name]. We serve [who you serve]. My role is [your role]. My biggest operational challenges are [list 2\u20133 challenges]. Always: use plain business language, be concise and actionable, assume I have limited time.'},
     {title:'Set response style',desc:'In the second box:',code:'Keep responses clear and business-focused. Use bullet points for lists. Always end with a suggested next action. Never use jargon unless I ask.'},
     {title:'Save and test',desc:'Click Save. Every conversation now starts with your context. Test: ask it to draft a follow-up email for a recent meeting. It\'ll ask the right questions.'},
   ]},
-  {icon:'Z',title:'Build your first automation with Zapier',time:'30 min',desc:'Set up the lead intake → CRM → auto-follow-up pipeline. This single automation saves most small businesses 2–3 hours per week from day one.',steps:[
+  {icon:'Z',title:'Build your first automation with Zapier',time:'30 min',desc:'Set up the lead intake \u2192 CRM \u2192 auto-follow-up pipeline. This single automation saves most small businesses 2\u20133 hours per week from day one.',steps:[
     {title:'Create your Zapier account',desc:'Go to zapier.com. Free plan = 5 Zaps, 100 tasks/month. Enough to start.'},
-    {title:'Build your intake form',desc:'Create a lead inquiry form at tally.so (free). Include: name, email, company, and "What\'s your biggest challenge?" — that last field feeds your AI draft.'},
-    {title:'Create the Zap — Trigger',desc:'Zapier → Create Zap → Tally as trigger → Event: New Submission.'},
-    {title:'Action 1: Notify yourself',desc:'Add Gmail action: email yourself the lead details.',code:'Subject: New lead: {{name}} — {{company}}'},
+    {title:'Build your intake form',desc:'Create a lead inquiry form at tally.so (free). Include: name, email, company, and "What\'s your biggest challenge?" \u2014 that last field feeds your AI draft.'},
+    {title:'Create the Zap \u2014 Trigger',desc:'Zapier \u2192 Create Zap \u2192 Tally as trigger \u2192 Event: New Submission.'},
+    {title:'Action 1: Notify yourself',desc:'Add Gmail action: email yourself the lead details.',code:'Subject: New lead: {{name}} \u2014 {{company}}'},
     {title:'Action 2: Add to HubSpot CRM',desc:'Add HubSpot action: Create Contact. Map form fields. HubSpot free plan handles this.'},
     {title:'Action 3: Draft the follow-up (optional)',desc:'Add ChatGPT action with this prompt:',code:'Write a short, warm follow-up email to {{name}} from {{company}}. Their biggest challenge is: {{challenge}}. I offer [your service]. Keep it under 5 sentences. Open a conversation, don\'t pitch.'},
     {title:'Publish and test',desc:'Turn it on, submit a test entry, and watch all three steps fire automatically in under 60 seconds.'},
   ]},
-  {icon:'O',title:'Never take meeting notes again — Otter.ai',time:'10 min',desc:'Records, transcribes, and summarizes your meetings automatically. Your next call will produce a full transcript, a summary, and an action item list without you lifting a pen.',steps:[
+  {icon:'O',title:'Never take meeting notes again \u2014 Otter.ai',time:'10 min',desc:'Records, transcribes, and summarizes your meetings automatically. Your next call will produce a full transcript, a summary, and an action item list without you lifting a pen.',steps:[
     {title:'Create your account',desc:'Go to otter.ai. Free plan = 300 minutes/month. Enough to start.'},
-    {title:'Connect your calendar',desc:'Settings → Calendar → Connect Google or Outlook. Otter will now see your upcoming meetings.'},
-    {title:'Enable Auto-Join',desc:'Settings → Meeting & Transcription → turn on "Otter joins Zoom/Teams/Meet automatically." It joins as "Otter.ai Notetaker."'},
-    {title:'After your first meeting',desc:'Open the Otter dashboard: full transcript, AI summary (3–5 sentences), and all action items with the speaker who mentioned them.'},
-    {title:'Turn notes into a follow-up',desc:'Copy Otter\'s action items → paste into ChatGPT:',code:'Based on these action items from a client meeting, write a professional follow-up email that recaps our discussion and confirms next steps:\n[paste action items]'},
-    {title:'Monthly insight (Pro move)',desc:'After 5 meetings, export all transcripts → paste into Claude:',code:'Review these transcripts and identify the 3 most common client concerns or objections I encounter. Then suggest how I could address each one proactively.'},
+    {title:'Connect your calendar',desc:'Settings \u2192 Calendar \u2192 Connect Google or Outlook. Otter will now see your upcoming meetings.'},
+    {title:'Enable Auto-Join',desc:'Settings \u2192 Meeting & Transcription \u2192 turn on "Otter joins Zoom/Teams/Meet automatically." It joins as "Otter.ai Notetaker."'},
+    {title:'After your first meeting',desc:'Open the Otter dashboard: full transcript, AI summary (3\u20135 sentences), and all action items with the speaker who mentioned them.'},
+    {title:'Turn notes into a follow-up',desc:'Copy Otter\'s action items \u2192 paste into ChatGPT:',code:'Based on these action items from a client meeting, write a professional follow-up email that recaps our discussion and confirms next steps:\n[paste action items]'},
+    {title:'Monthly insight (Pro move)',desc:'After 5 meetings, export all transcripts \u2192 paste into Claude:',code:'Review these transcripts and identify the 3 most common client concerns or objections I encounter. Then suggest how I could address each one proactively.'},
   ]},
 ];
 
 const SCENARIOS = [
-  {industry:'General Contractor',role:'Owner, residential remodeling',biz:'contractor',pain:'ops',before:'Spent 3 hours every Monday writing estimates from handwritten notes. Copied from old proposals, updated numbers manually. Sometimes 2–3 days after the walkthrough — by then, some prospects had already called someone else.',after:'Records a voice memo during the walkthrough. Pastes the transcription into ChatGPT → formatted estimate with scope, timeline, materials, and labor. Reviews, adjusts pricing, sends within 2 hours.',result:'Estimate turnaround: 2–3 days → same day. Close rate improved ~30% — simply by being first to follow up.'},
-  {industry:'Independent Consultant',role:'Business strategy, solo practice',biz:'consultant',pain:'admin',before:'After every client call: 30–45 minutes writing notes, drafting a follow-up email, updating the project tracker. Billing 60% of hours. Spending the rest on admin.',after:'Otter.ai joins every call. Copies action items → pastes into ChatGPT → drafts follow-up email and tracker update in one shot. Total time: 5 minutes.',result:'Recovered 8+ hours of billable capacity per week. Onboarded 2 new clients with the recovered time — without hiring anyone.'},
-  {industry:'Real Estate Team',role:'4-person buyer\'s agent team',biz:'realestate',pain:'sales',before:'80+ active leads in a spreadsheet no one fully trusted. Follow-up was inconsistent. Lost 3 deals in one quarter to competitors who simply followed up faster.',after:'Zapier: new lead from website → HubSpot CRM → ChatGPT-generated personalized follow-up within 15 minutes → agent reminder in 3 days if no response. All automatic.',result:'Lead response time: 24+ hours → under 20 minutes. Re-engaged 11 cold leads in month one. Closed 2 additional deals.'},
-  {industry:'Marketing Agency',role:'Owner, 8-person creative team',biz:'agency',pain:'admin',before:'Monthly client reports: 3–4 hours per client. Pull from 4 platforms, paste into slides, write narrative. Most dreaded task on the team. Clients rarely read them.',after:'ChatGPT prompt takes raw performance data → plain-English executive summary, 3 key wins, 3 recommendations, next steps. Account manager reviews and sends. Time: 30 minutes.',result:'Reporting time cut 80%. Two clients specifically cited the reports as a reason they renewed their contracts.'},
+  {industry:'General Contractor',role:'Owner, residential remodeling',biz:'contractor',pain:'ops',before:'Spent 3 hours every Monday writing estimates from handwritten notes. Copied from old proposals, updated numbers manually. Sometimes 2\u20133 days after the walkthrough \u2014 by then, some prospects had already called someone else.',after:'Records a voice memo during the walkthrough. Pastes the transcription into ChatGPT \u2192 formatted estimate with scope, timeline, materials, and labor. Reviews, adjusts pricing, sends within 2 hours.',result:'Estimate turnaround: 2\u20133 days \u2192 same day. Close rate improved ~30% \u2014 simply by being first to follow up.'},
+  {industry:'Independent Consultant',role:'Business strategy, solo practice',biz:'consultant',pain:'admin',before:'After every client call: 30\u201345 minutes writing notes, drafting a follow-up email, updating the project tracker. Billing 60% of hours. Spending the rest on admin.',after:'Otter.ai joins every call. Copies action items \u2192 pastes into ChatGPT \u2192 drafts follow-up email and tracker update in one shot. Total time: 5 minutes.',result:'Recovered 8+ hours of billable capacity per week. Onboarded 2 new clients with the recovered time \u2014 without hiring anyone.'},
+  {industry:'Real Estate Team',role:'4-person buyer\'s agent team',biz:'realestate',pain:'sales',before:'80+ active leads in a spreadsheet no one fully trusted. Follow-up was inconsistent. Lost 3 deals in one quarter to competitors who simply followed up faster.',after:'Zapier: new lead from website \u2192 HubSpot CRM \u2192 ChatGPT-generated personalized follow-up within 15 minutes \u2192 agent reminder in 3 days if no response. All automatic.',result:'Lead response time: 24+ hours \u2192 under 20 minutes. Re-engaged 11 cold leads in month one. Closed 2 additional deals.'},
+  {industry:'Marketing Agency',role:'Owner, 8-person creative team',biz:'agency',pain:'admin',before:'Monthly client reports: 3\u20134 hours per client. Pull from 4 platforms, paste into slides, write narrative. Most dreaded task on the team. Clients rarely read them.',after:'ChatGPT prompt takes raw performance data \u2192 plain-English executive summary, 3 key wins, 3 recommendations, next steps. Account manager reviews and sends. Time: 30 minutes.',result:'Reporting time cut 80%. Two clients specifically cited the reports as a reason they renewed their contracts.'},
   {industry:'Property Management',role:'Owner, 120 residential units',biz:'property',pain:'ops',before:'Maintenance requests via text, phone, and email with no consistent system. Tracked on a whiteboard and a group chat. Things fell through the cracks constantly.',after:'Tally intake form routes to Notion database, assigns by category, sends automatic tenant acknowledgment. Weekly Zapier trigger sends open items list to team.',result:'Zero requests lost in the first 60 days. Tenant satisfaction improved noticeably. Owner recovered 6 hours/week from chasing status updates.'},
-  {industry:'Healthcare Practice',role:'Office manager, 3-physician practice',biz:'healthcare',pain:'admin',before:'Insurance pre-authorization letters: pull information from 3 systems, format correctly, fax. Each letter: 20–30 minutes. Processing 15–20 per week.',after:'ChatGPT generates the formatted letter from copy-pasted clinical criteria. Staff fills in a short template, reviews, prints. No sensitive data submitted.',result:'Authorization letter time: 20–30 min → 4–5 minutes each. Staff recaptured 4–5 hours per week.'},
-  {industry:'Staffing Company',role:'Owner, regional light industrial staffing',biz:'staffing',pain:'ops',before:'Job order intake: phone call + manual notes + email confirmation. Slow, error-prone, dependent on one coordinator. If she was out, orders stalled.',after:'Tally form captures standard orders. Zapier populates Notion. ChatGPT drafts the confirmation email. Coordinator reviews and sends — even when she\'s out.',result:'Job order processing: same-day → under 30 minutes. Error rate dropped significantly. Coordinator handles 40% more volume.'},
-  {industry:'Financial Advisory',role:'Solo RIA, 60 client relationships',biz:'legal',pain:'admin',before:'After every quarterly review: 45–60 minutes drafting a meeting summary letter per client. With 60 clients, the quarterly summary period consumed an entire week.',after:'Otter transcript → Claude generates a personalized summary letter in the firm\'s voice. Advisor reviews, adjusts numbers, sends. Time: 10 minutes per client.',result:'Summary letter time: 45+ min → 10 min per client. Saved 35+ hours per quarterly cycle. Clients said the letters felt more detailed than before.'},
+  {industry:'Healthcare Practice',role:'Office manager, 3-physician practice',biz:'healthcare',pain:'admin',before:'Insurance pre-authorization letters: pull information from 3 systems, format correctly, fax. Each letter: 20\u201330 minutes. Processing 15\u201320 per week.',after:'ChatGPT generates the formatted letter from copy-pasted clinical criteria. Staff fills in a short template, reviews, prints. No sensitive data submitted.',result:'Authorization letter time: 20\u201330 min \u2192 4\u20135 minutes each. Staff recaptured 4\u20135 hours per week.'},
+  {industry:'Staffing Company',role:'Owner, regional light industrial staffing',biz:'staffing',pain:'ops',before:'Job order intake: phone call + manual notes + email confirmation. Slow, error-prone, dependent on one coordinator. If she was out, orders stalled.',after:'Tally form captures standard orders. Zapier populates Notion. ChatGPT drafts the confirmation email. Coordinator reviews and sends \u2014 even when she\'s out.',result:'Job order processing: same-day \u2192 under 30 minutes. Error rate dropped significantly. Coordinator handles 40% more volume.'},
+  {industry:'Financial Advisory',role:'Solo RIA, 60 client relationships',biz:'legal',pain:'admin',before:'After every quarterly review: 45\u201360 minutes drafting a meeting summary letter per client. With 60 clients, the quarterly summary period consumed an entire week.',after:'Otter transcript \u2192 Claude generates a personalized summary letter in the firm\'s voice. Advisor reviews, adjusts numbers, sends. Time: 10 minutes per client.',result:'Summary letter time: 45+ min \u2192 10 min per client. Saved 35+ hours per quarterly cycle. Clients said the letters felt more detailed than before.'},
 ];
 
 // ─── STATE ────────────────────────────────────────────────────
@@ -487,7 +1549,7 @@ async function validateKey() {
     const result = await callValidate(key);
     if(result.valid) {
       input.classList.add('success');
-      showMsg('success','Key validated — unlocking your kit...');
+      showMsg('success','Key validated \u2014 unlocking your kit...');
       licenseKey = key;
       localStorage.setItem(STORAGE_KEY, key);
       setTimeout(() => enterKit(), 900);
@@ -495,13 +1557,13 @@ async function validateKey() {
       input.classList.add('error');
       showMsg('error', result.reason || 'Invalid key. Check for typos or contact info@ebygautomation.com');
       btn.disabled = false;
-      btnText.textContent = 'Unlock my kit';
+      btnText.textContent = 'Unlock';
     }
   } catch(e) {
     // Fallback: if Supabase isn't configured yet, validate format only
     if(key.startsWith('EBYG-') && key.length === 19) {
       input.classList.add('success');
-      showMsg('success','Key accepted — unlocking your kit...');
+      showMsg('success','Key accepted \u2014 unlocking your kit...');
       licenseKey = key;
       localStorage.setItem(STORAGE_KEY, key);
       setTimeout(() => enterKit(), 900);
@@ -509,7 +1571,7 @@ async function validateKey() {
       showMsg('error','Invalid key format. Keys look like EBYG-XXXX-XXXX-XXXX');
       input.classList.add('error');
       btn.disabled = false;
-      btnText.textContent = 'Unlock my kit';
+      btnText.textContent = 'Unlock';
     }
   }
 }
@@ -603,14 +1665,14 @@ function renderTools() {
 
   document.getElementById('tools-banner').style.display = 'flex';
   document.getElementById('tools-banner-text').textContent =
-    'Based on your biggest friction ('+pain+'), these 4 tools will have the highest immediate impact. Start here before exploring the rest.';
+    'Based on your biggest friction ('+pain+'), these 4 tools will have the highest immediate impact.';
 
   const out = document.getElementById('tools-output');
   out.innerHTML = '';
 
   const topLabel = document.createElement('div');
   topLabel.className = 'tools-section-label';
-  topLabel.textContent = 'Recommended for you — ' + pain;
+  topLabel.textContent = 'Recommended for you \u2014 ' + pain;
   out.appendChild(topLabel);
 
   const topGrid = document.createElement('div');
@@ -621,7 +1683,7 @@ function renderTools() {
   const allLabel = document.createElement('div');
   allLabel.className = 'tools-section-label';
   allLabel.style.marginTop = '1.5rem';
-  allLabel.textContent = 'Full toolkit — all 13 tools';
+  allLabel.textContent = 'Full toolkit \u2014 all 13 tools';
   out.appendChild(allLabel);
 
   const allGrid = document.createElement('div');
@@ -760,7 +1822,7 @@ function renderScenarios() {
   if(top) {
     document.getElementById('scenario-banner').style.display = 'flex';
     document.getElementById('scenario-banner-text').textContent =
-      'The "'+top.industry+'" scenario matches your profile most closely \u2014 it\'s shown first.';
+      'The \u201c'+top.industry+'\u201d scenario matches your profile most closely \u2014 it\u2019s shown first.';
   }
   const out = document.getElementById('scenarios-output');
   out.innerHTML = '';
