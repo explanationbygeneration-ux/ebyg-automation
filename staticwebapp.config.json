@@ -1,9 +1,23 @@
 {
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/images/*.{png,jpg,gif,svg}", "/css/*", "/js/*", "/*.{ico,png,xml,txt,json}"]
+    "exclude": [
+      "/precision-trusses-estimate/*",
+      "/images/*.{png,jpg,gif,svg}",
+      "/css/*",
+      "/js/*",
+      "/*.{ico,png,xml,txt,json}"
+    ]
   },
   "routes": [
+    {
+      "route": "/precision-trusses-estimate",
+      "rewrite": "/precision-trusses-estimate/index.html"
+    },
+    {
+      "route": "/precision-trusses-estimate/",
+      "rewrite": "/precision-trusses-estimate/index.html"
+    },
     {
       "route": "/api/*",
       "allowedRoles": ["anonymous"]
