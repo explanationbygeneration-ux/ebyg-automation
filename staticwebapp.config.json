@@ -11,11 +11,7 @@
   },
   "routes": [
     {
-      "route": "/precision-trusses-estimate",
-      "rewrite": "/precision-trusses-estimate/index.html"
-    },
-    {
-      "route": "/precision-trusses-estimate/",
+      "route": "/precision-trusses-estimate*",
       "rewrite": "/precision-trusses-estimate/index.html"
     },
     {
