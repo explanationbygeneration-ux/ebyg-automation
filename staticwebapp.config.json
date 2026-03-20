@@ -2,7 +2,7 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
-      "/precision-trusses-estimate/*",
+      "/precision-trusses-estimate*",
       "/images/*.{png,jpg,gif,svg}",
       "/css/*",
       "/js/*",
@@ -11,7 +11,7 @@
   },
   "routes": [
     {
-      "route": "/precision-trusses-estimate*",
+      "route": "/precision-trusses-estimate",
       "rewrite": "/precision-trusses-estimate/index.html"
     },
     {
