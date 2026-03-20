@@ -2,6 +2,7 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
+      "/precision-trusses-estimate",
       "/precision-trusses-estimate.html",
       "/images/*.{png,jpg,gif,svg}",
       "/css/*",
