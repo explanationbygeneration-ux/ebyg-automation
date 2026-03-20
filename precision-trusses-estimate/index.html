@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precision Trusses × EBYG Automation — Proposal</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+.wrap{font-family:'Inter',sans-serif;background:#F0F4F8;color:#0F2A3F;min-height:100vh;position:relative;overflow-x:hidden;}
+.wrap::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(11,94,162,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(11,94,162,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
+.inner{position:relative;z-index:1;max-width:740px;margin:0 auto;padding:0 1.25rem 4rem;}
+
+.topbar{background:#0F2A3F;padding:.75rem 1.25rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;}
+.tb-brand{font-family:'Crimson Pro',serif;font-size:18px;color:#fff;letter-spacing:-.2px;}
+.tb-div{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:1.5px;text-transform:uppercase;margin-top:1px;}
+.tb-tag{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
+.tb-dot{width:5px;height:5px;border-radius:50%;background:#0B5EA2;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+.hero{background:#fff;border-bottom:2px solid #0B5EA2;padding:2.5rem 1.25rem 2rem;margin-bottom:2rem;}
+.hero-ref{font-family:'DM Mono',monospace;font-size:10px;color:#9CA3AF;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:1rem;}
+.hero h1{font-family:'Crimson Pro',serif;font-size:clamp(26px,5vw,38px);color:#0F2A3F;line-height:1.15;margin-bottom:.75rem;font-weight:600;}
+.hero h1 em{font-style:normal;color:#0B5EA2;}
+.hero-sub{font-size:14px;color:#6B7280;line-height:1.75;max-width:520px;margin-bottom:1.5rem;}
+.hero-meta{display:flex;gap:2rem;flex-wrap:wrap;padding-top:1.25rem;border-top:1px solid #E5E7EB;}
+.hm{font-family:'DM Mono',monospace;font-size:11px;color:#9CA3AF;}
+.hm span{color:#0F2A3F;font-weight:500;}
+
+.slabel{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:#0B5EA2;margin-bottom:.75rem;display:flex;align-items:center;gap:10px;}
+.slabel::after{content:'';flex:1;height:1px;background:#E5E7EB;}
+
+.svclist{display:flex;flex-direction:column;gap:8px;margin-bottom:2rem;}
+.tdiv{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#9CA3AF;margin:1rem 0 .5rem;display:flex;align-items:center;gap:8px;}
+.tdiv::before{content:'';width:8px;height:8px;border-radius:2px;flex-shrink:0;}
+.tdiv.ot::before{background:#0B5EA2;}
+.tdiv.mo::before{background:#D97706;}
+
+.sc{background:#fff;border:1px solid #E5E7EB;border-radius:10px;overflow:hidden;transition:border-color .2s,opacity .2s;}
+.sc.off{opacity:.5;}
+.sc.open{border-left:3px solid #0B5EA2;}
+.sc.open.mo-card{border-left:3px solid #D97706;}
+.sh{display:flex;justify-content:space-between;align-items:center;padding:.85rem 1rem;gap:.75rem;}
+.sl2{display:flex;align-items:center;gap:10px;flex:1;min-width:0;cursor:pointer;}
+.ico{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ib{background:#E6F1FB;}
+.ia{background:#FAEEDA;}
+.sn{font-size:13px;font-weight:500;color:#0F2A3F;}
+.st{font-family:'DM Mono',monospace;font-size:10px;color:#9CA3AF;margin-top:1px;}
+.sr{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.sp{font-family:'Crimson Pro',serif;font-size:17px;color:#0F2A3F;font-weight:600;white-space:nowrap;}
+.sc2{font-family:'DM Mono',monospace;font-size:10px;color:#9CA3AF;text-align:right;margin-top:1px;}
+.chev{width:14px;height:14px;color:#9CA3AF;transition:transform .2s;flex-shrink:0;cursor:pointer;}
+.sc.open .chev{transform:rotate(180deg);}
+
+.tog-wrap{display:flex;align-items:center;flex-shrink:0;}
+.tog{position:relative;width:36px;height:20px;flex-shrink:0;}
+.tog input{opacity:0;width:0;height:0;position:absolute;}
+.tog-slider{position:absolute;inset:0;background:#E5E7EB;border-radius:20px;cursor:pointer;transition:background .2s;}
+.tog-slider::before{content:'';position:absolute;width:14px;height:14px;left:3px;top:3px;background:#fff;border-radius:50%;transition:transform .2s;}
+.tog input:checked+.tog-slider{background:#0B5EA2;}
+.tog input:checked+.tog-slider.amber{background:#D97706;}
+.tog input:checked+.tog-slider::before{transform:translateX(16px);}
+
+.sb{display:none;padding:0 1rem 1rem;padding-left:calc(1rem + 28px + 10px);}
+.sc.open .sb{display:block;}
+.sb p{font-size:13px;color:#6B7280;line-height:1.65;margin-bottom:8px;}
+.sb ul{list-style:none;display:flex;flex-direction:column;gap:4px;}
+.sb li{font-size:12px;color:#6B7280;padding-left:14px;position:relative;line-height:1.5;}
+.sb li::before{content:'›';position:absolute;left:0;color:#0B5EA2;font-weight:500;}
+
+.adbox{margin-top:12px;padding:12px 14px;background:#F0F4F8;border-radius:8px;border:1px solid #E5E7EB;}
+.adbox-label{font-family:'DM Mono',monospace;font-size:9px;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.adrow{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.adrow span{font-family:'DM Mono',monospace;font-size:10px;color:#6B7280;width:80px;flex-shrink:0;}
+.adrow input[type=range]{flex:1;accent-color:#0B5EA2;}
+.adrow .av{font-family:'DM Mono',monospace;font-size:11px;color:#0F2A3F;font-weight:500;min-width:48px;text-align:right;}
+.adgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px;}
+.adg-item label{font-family:'DM Mono',monospace;font-size:9px;color:#9CA3AF;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px;}
+.adg-item .av2{font-size:13px;font-weight:500;color:#0F2A3F;}
+.adg-item .av2.grn{color:#0F6E56;}
+.adnote{font-family:'DM Mono',monospace;font-size:9px;color:#9CA3AF;margin-top:7px;}
+
+.calc{background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:1.25rem;margin-bottom:2rem;}
+.crow{display:flex;align-items:center;gap:10px;margin-bottom:.85rem;}
+.crow span{font-family:'DM Mono',monospace;font-size:11px;color:#6B7280;width:130px;flex-shrink:0;}
+.crow input[type=range]{flex:1;accent-color:#0B5EA2;}
+.crow .cv{font-family:'DM Mono',monospace;font-size:11px;color:#0F2A3F;font-weight:500;min-width:58px;text-align:right;}
+.cres{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:1.1rem;padding-top:1.1rem;border-top:1px solid #E5E7EB;}
+.cm label{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#9CA3AF;display:block;margin-bottom:3px;}
+.cm .cv2{font-family:'Crimson Pro',serif;font-size:24px;color:#0F2A3F;font-weight:600;}
+.cm .cv2.g{color:#0F6E56;}
+
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:2rem;}
+.tc{background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:1.1rem 1.25rem;border-top:3px solid #0B5EA2;}
+.tc label{font-family:'DM Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:#9CA3AF;display:block;margin-bottom:6px;}
+.tc .amt{font-family:'Crimson Pro',serif;font-size:30px;color:#0F2A3F;line-height:1;font-weight:600;}
+.tc .sub{font-size:11px;color:#9CA3AF;margin-top:3px;}
+.tc .breakdown{margin-top:10px;padding-top:8px;border-top:1px solid #E5E7EB;display:flex;flex-direction:column;gap:3px;}
+.tc .brow{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;color:#9CA3AF;}
+.tc .brow span:last-child{color:#0F2A3F;font-weight:500;}
+
+.jblock{background:#fff;border:1px solid #E5E7EB;border-radius:10px;padding:1.25rem;margin-bottom:2rem;display:flex;gap:1rem;border-left:3px solid #0B5EA2;}
+.jg{font-family:'Crimson Pro',serif;font-size:38px;color:#0B5EA2;line-height:1;flex-shrink:0;padding-top:2px;}
+.jt p{font-size:13px;color:#6B7280;line-height:1.7;}
+.jt strong{color:#0F2A3F;font-weight:500;}
+
+.terms-list{display:flex;flex-direction:column;gap:7px;margin-bottom:2rem;}
+.ti2{display:flex;gap:10px;}
+.tn{font-family:'DM Mono',monospace;font-size:10px;color:#0B5EA2;width:20px;flex-shrink:0;padding-top:2px;}
+.tt{font-size:12px;color:#6B7280;line-height:1.6;}
+
+
+
+.foot{text-align:center;padding-top:1.25rem;border-top:1px solid #E5E7EB;}
+.fb{font-family:'Crimson Pro',serif;font-size:16px;color:#0F2A3F;margin-bottom:5px;font-weight:600;}
+.flinks{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+.flinks a{font-family:'DM Mono',monospace;font-size:11px;color:#0B5EA2;text-decoration:none;}
+.fc{font-family:'DM Mono',monospace;font-size:10px;color:#9CA3AF;margin-top:8px;}
+
+@media(max-width:480px){
+  .totals{grid-template-columns:1fr;}
+  .agrid{grid-template-columns:1fr;}
+  .cres{grid-template-columns:1fr 1fr;}
+  .adgrid{grid-template-columns:1fr 1fr;}
+  .sb{padding-left:1rem;}
+  .hero{padding-left:1rem;padding-right:1rem;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topbar">
+  <div>
+    <div class="tb-brand">EBYG Automation</div>
+    <div class="tb-div">A Division of EBYG Media LLC</div>
+  </div>
+  <div class="tb-tag"><span class="tb-dot"></span>live proposal · PT-2026-001</div>
+</div>
+
+<div class="hero">
+  <div class="hero-ref">service proposal · precision trusses · march 20, 2026</div>
+  <h1>Digital infrastructure<br>for <em>Precision Trusses</em></h1>
+  <p class="hero-sub">A full-stack web presence built around how your business actually operates — not around our technology. Toggle services on or off below to customize your package.</p>
+  <div class="hero-meta">
+    <div class="hm">prepared by <span>EBYG Automation</span></div>
+    <div class="hm">valid <span>30 days</span></div>
+    <div class="hm">ref <span>PT-2026-001</span></div>
+  </div>
+</div>
+
+<div class="inner">
+
+<div class="slabel">services included</div>
+<div class="svclist">
+
+  <div class="tdiv ot">one-time</div>
+
+  <div class="sc" id="s-web">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-web')">
+        <div class="ico ib"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="10" rx="2" stroke="#0B5EA2" stroke-width="1.3"/><path d="M5 14h6M8 12v2" stroke="#0B5EA2" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div><div class="sn">Website completion & deployment</div><div class="st">one-time · azure</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$800</div><div class="sc2">one-time</div></div>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:#E6F1FB;color:#185FA5;padding:3px 8px;border-radius:4px;white-space:nowrap;">required</span>
+        <svg class="chev" onclick="expand('s-web')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>Final build-out, QA testing, and full production deployment on Azure. Mobile-responsive, SSL-secured, and performance-optimized.</p><ul><li>All remaining pages and components finalized</li><li>Cross-device & browser testing</li><li>SSL certificate + uptime configuration</li><li>Production deploy to Azure infrastructure</li></ul></div>
+  </div>
+
+  <div class="sc" id="s-portal">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-portal')">
+        <div class="ico ib"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="14" height="14" rx="2" stroke="#0B5EA2" stroke-width="1.3"/><path d="M4 5h8M4 8h5M4 11h3" stroke="#0B5EA2" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div><div class="sn">Client management portal</div><div class="st">one-time · cms setup</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$400</div><div class="sc2">one-time</div></div>
+        <div class="tog-wrap"><label class="tog"><input type="checkbox" checked onchange="updateTotals()"><span class="tog-slider"></span></label></div>
+        <svg class="chev" onclick="expand('s-portal')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>A backend portal giving your team direct control over the website — update images, text, and contact info without needing a developer. Changes stage before going live.</p><ul><li>Edit images, text, and page content</li><li>Update contact info and business details</li><li>Secure login with role-based access</li><li>Staging review before publishing to production</li></ul></div>
+  </div>
+
+  <div class="sc" id="s-adsetup">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-adsetup')">
+        <div class="ico ib"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 11L6 7l3 3 5-6" stroke="#0B5EA2" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><rect x="1" y="1" width="14" height="14" rx="2" stroke="#0B5EA2" stroke-width="1.3"/></svg></div>
+        <div><div class="sn">Ad campaign setup & creative</div><div class="st">one-time · google ads</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$300</div><div class="sc2">one-time</div></div>
+        <div class="tog-wrap"><label class="tog"><input type="checkbox" checked onchange="updateTotals()"><span class="tog-slider"></span></label></div>
+        <svg class="chev" onclick="expand('s-adsetup')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>Full campaign build before the first ad goes live — keyword research, ad copy, creative assets, and retargeting pixel installation on your site.</p><ul><li>Google Ads account & campaign structure setup</li><li>Keyword research & negative keyword list</li><li>Ad copy creation (search + display variants)</li><li>Retargeting pixel installed on your website</li><li>Conversion tracking configuration</li></ul></div>
+  </div>
+
+  <div class="tdiv mo">monthly</div>
+
+  <div class="sc mo-card" id="s-host">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-host')">
+        <div class="ico ia"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#D97706" stroke-width="1.3"/><path d="M8 5v3l2 2" stroke="#D97706" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div><div class="sn">Hosting, infrastructure & reporting</div><div class="st">monthly · azure</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$75</div><div class="sc2">/ month</div></div>
+        <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;background:#FAEEDA;color:#854F0B;padding:3px 8px;border-radius:4px;white-space:nowrap;">required</span>
+        <svg class="chev" onclick="expand('s-host')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>Azure hosting with uptime monitoring, daily backups, SSL management, and full client portal access. Monthly performance report delivered to your inbox.</p><ul><li>Uptime monitoring & SSL management</li><li>Daily automated backups</li><li>Client portal access included</li><li>Monthly report: visitors, traffic sources, top pages</li></ul></div>
+  </div>
+
+  <div class="sc mo-card" id="s-ai">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-ai')">
+        <div class="ico ia"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12c0-3 2-5 6-5s6 2 6 5" stroke="#D97706" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="5" r="2.5" stroke="#D97706" stroke-width="1.3"/><path d="M13 8l1.5 1-1.5 1" stroke="#D97706" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><div class="sn">AI chat assistant</div><div class="st">monthly · powered by claude</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$150</div><div class="sc2">/ month</div></div>
+        <div class="tog-wrap"><label class="tog"><input type="checkbox" checked onchange="updateTotals()"><span class="tog-slider amber"></span></label></div>
+        <svg class="chev" onclick="expand('s-ai')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>A Claude-powered chat widget trained on your products, services, and FAQs. Handles after-hours inquiries and captures lead information automatically.</p><ul><li>Trained on Precision Trusses products & services</li><li>Handles after-hours customer questions</li><li>Captures and logs lead information</li><li>API usage + ongoing prompt refinement included</li></ul></div>
+  </div>
+
+  <div class="sc mo-card" id="s-seo">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-seo')">
+        <div class="ico ia"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="2" stroke="#D97706" stroke-width="1.3"/><circle cx="12" cy="4" r="2" stroke="#D97706" stroke-width="1.3"/><circle cx="12" cy="12" r="2" stroke="#D97706" stroke-width="1.3"/><path d="M6 7.2l4-2.4M6 8.8l4 2.4" stroke="#D97706" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div><div class="sn">SEO & AIO optimization</div><div class="st">monthly · search + ai</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$200</div><div class="sc2">/ month</div></div>
+        <div class="tog-wrap"><label class="tog"><input type="checkbox" checked onchange="updateTotals()"><span class="tog-slider amber"></span></label></div>
+        <svg class="chev" onclick="expand('s-seo')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>Ongoing optimization for both traditional search engines and AI-driven discovery platforms — so Precision Trusses surfaces when buyers search, however they search.</p><ul><li>Keyword monitoring & content updates</li><li>Technical SEO audits & schema markup</li><li>AI-driven search optimization (AIO)</li><li>Monthly ranking & visibility report</li></ul></div>
+  </div>
+
+  <div class="sc mo-card" id="s-social">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-social')">
+        <div class="ico ia"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1" y="4" width="6" height="9" rx="1.5" stroke="#D97706" stroke-width="1.3"/><rect x="9" y="1" width="6" height="12" rx="1.5" stroke="#D97706" stroke-width="1.3"/><path d="M3.5 7h1M3.5 9.5h1M11.5 4h1M11.5 6.5h1M11.5 9h1" stroke="#D97706" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div><div class="sn">Social media & Google reputation</div><div class="st">monthly · 3 platforms + gbp</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp">$300</div><div class="sc2">/ month</div></div>
+        <div class="tog-wrap"><label class="tog"><input type="checkbox" checked onchange="updateTotals()"><span class="tog-slider amber"></span></label></div>
+        <svg class="chev" onclick="expand('s-social')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb"><p>12 branded posts/month across agreed platforms, plus Google Business Profile setup, optimization, and review management to build local search authority.</p><ul><li>12 posts/month — Facebook, Instagram, LinkedIn</li><li>Branded graphics included</li><li>Google Business Profile setup & optimization</li><li>Review monitoring & response strategy</li><li>Monthly performance summary</li></ul></div>
+  </div>
+
+  <div class="sc mo-card" id="s-ads">
+    <div class="sh">
+      <div class="sl2" onclick="expand('s-ads')">
+        <div class="ico ia"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#D97706" stroke-width="1.3"/><path d="M5 8h6M8 5v6" stroke="#D97706" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+        <div><div class="sn">Internet advertising & retargeting</div><div class="st">monthly · google ads network</div></div>
+      </div>
+      <div class="sr">
+        <div style="text-align:right"><div class="sp" id="adprice">$275</div><div class="sc2">/ mo + spend</div></div>
+        <div class="tog-wrap"><label class="tog"><input type="checkbox" checked onchange="updateTotals()"><span class="tog-slider amber"></span></label></div>
+        <svg class="chev" onclick="expand('s-ads')" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </div>
+    </div>
+    <div class="sb">
+      <p>Ads across Google's full network — search results, display placements, and retargeting for visitors who've already been to your site. You pay the ad spend; we manage, optimize, and report monthly.</p>
+      <ul><li>Search ads — appear when buyers search for trusses locally</li><li>Display ads — Google's network across relevant sites</li><li>Retargeting — follow site visitors after they leave</li><li>Monthly bid & keyword optimization</li><li>Monthly performance report included</li></ul>
+      <div class="adbox">
+        <div class="adbox-label">ad spend estimator</div>
+        <div class="adrow"><span>monthly spend</span><input type="range" id="adspend" min="300" max="2000" step="50" value="500" oninput="updAd()"><span class="av" id="sout">$500</span></div>
+        <div class="adgrid">
+          <div class="adg-item"><label>ad spend</label><div class="av2" id="sdisp">$500</div></div>
+          <div class="adg-item"><label>mgmt fee</label><div class="av2" id="mdisp">$275</div></div>
+          <div class="adg-item"><label>total</label><div class="av2 grn" id="tdisp">$775</div></div>
+        </div>
+        <div class="adnote">$200 flat + 15% of ad spend · recommended start: $500–$750/mo</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="slabel">ROI estimator</div>
+<div class="calc">
+  <div class="crow"><span>avg. job value</span><input type="range" id="job" min="500" max="50000" step="500" value="8000" oninput="calcROI()"><span class="cv" id="jout">$8,000</span></div>
+  <div class="crow"><span>new jobs / month</span><input type="range" id="jobs" min="1" max="20" step="1" value="3" oninput="calcROI()"><span class="cv" id="lout">3</span></div>
+  <div class="cres">
+    <div class="cm"><label>monthly cost</label><div class="cv2" id="calc-cost">$925</div></div>
+    <div class="cm"><label>revenue added</label><div class="cv2 g" id="rout">$24,000</div></div>
+    <div class="cm"><label>ROI</label><div class="cv2 g" id="iout">2,495%</div></div>
+  </div>
+</div>
+
+<div class="slabel">your custom total</div>
+<div class="totals">
+  <div class="tc">
+    <label>One-time investment</label>
+    <div class="amt" id="ot-total">$1,500</div>
+    <div class="sub">based on selected services</div>
+    <div class="breakdown" id="ot-breakdown">
+      <div class="brow"><span>Website deployment</span><span>$800</span></div>
+      <div class="brow"><span>Client portal</span><span>$400</span></div>
+      <div class="brow"><span>Ad campaign setup</span><span>$300</span></div>
+    </div>
+  </div>
+  <div class="tc">
+    <label>Monthly retainer</label>
+    <div class="amt" id="mo-total">$925<span style="font-size:16px;color:#9CA3AF;">+</span></div>
+    <div class="sub">based on selected services</div>
+    <div class="breakdown" id="mo-breakdown">
+      <div class="brow"><span>Hosting & reporting</span><span>$75</span></div>
+      <div class="brow"><span>AI chat assistant</span><span>$150</span></div>
+      <div class="brow"><span>SEO & AIO</span><span>$200</span></div>
+      <div class="brow"><span>Social & Google</span><span>$300</span></div>
+      <div class="brow"><span>Advertising mgmt</span><span>$275+</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="slabel">philosophy</div>
+<div class="jblock">
+  <div class="jg">정</div>
+  <div class="jt"><p><strong>Why EBYG Automation.</strong> Most digital agencies master a platform and look for problems it can solve. We start with how your business actually generates revenue, where time is being lost, and which friction points limit growth. The system is built around those realities — not the other way around. That is Jeong in practice.</p></div>
+</div>
+
+<div class="slabel">terms</div>
+<div class="terms-list">
+  <div class="ti2"><span class="tn">01</span><span class="tt">Monthly services begin upon website deployment and are billed on the 1st of each month.</span></div>
+  <div class="ti2"><span class="tn">02</span><span class="tt">Monthly services are independent — add or remove any line item with 30 days written notice.</span></div>
+  <div class="ti2"><span class="tn">03</span><span class="tt">Ad spend is billed through EBYG Automation and passed to Google at cost. No markup on spend — management fee is the only charge above ad spend.</span></div>
+  <div class="ti2"><span class="tn">04</span><span class="tt">AI chatbot API usage included up to a reasonable threshold; high-volume usage communicated before any additional cost is applied.</span></div>
+  <div class="ti2"><span class="tn">05</span><span class="tt">Social media and Google management requires page and profile access prior to first billing cycle.</span></div>
+  <div class="ti2"><span class="tn">06</span><span class="tt">Google Business Profile setup included at no additional charge within the social media service.</span></div>
+  <div class="ti2"><span class="tn">07</span><span class="tt">Proposal valid 30 days from March 20, 2026.</span></div>
+</div>
+
+
+
+<div class="foot">
+  <div class="fb">EBYG Automation</div>
+  <div class="flinks">
+    <a href="tel:+18016489652">(801) 648-9652</a>
+    <a href="/cdn-cgi/l/email-protection#abc2c5cdc48d889d9f90cec9d2cccadedfc4c6cadfc2c4c585c8c4c6">info&#64;ebygautomation.com</a>
+    <a href="https://ebygautomation.com">ebygautomation.com</a>
+  </div>
+  <div class="fc">A division of EBYG Media LLC · Confidential · Precision Trusses</div>
+</div>
+
+</div>
+</div>
+
+<script>
+var services = {
+  'web':     {type:'ot', price:800,  label:'Website deployment', required:true},
+  'portal':  {type:'ot', price:400,  label:'Client portal'},
+  'adsetup': {type:'ot', price:300,  label:'Ad campaign setup'},
+  'host':    {type:'mo', price:75,   label:'Hosting & reporting', required:true},
+  'ai':      {type:'mo', price:150,  label:'AI chat assistant'},
+  'seo':     {type:'mo', price:200,  label:'SEO & AIO'},
+  'social':  {type:'mo', price:300,  label:'Social & Google'},
+  'ads':     {type:'mo', price:275,  label:'Advertising mgmt', variable:true}
+};
+
+function expand(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+function getAdMgmt(){
+  var s = document.getElementById('adspend') ? parseInt(document.getElementById('adspend').value) : 500;
+  return Math.round(200 + s * 0.15);
+}
+
+function calcROI(){
+  var j = parseInt(document.getElementById('job').value);
+  var l = parseInt(document.getElementById('jobs').value);
+  document.getElementById('jout').textContent = '$'+j.toLocaleString();
+  document.getElementById('lout').textContent = l;
+  var rev = j * l;
+  var cost = 0;
+  Object.keys(services).forEach(function(k){
+    var svc = services[k];
+    if(svc.type==='mo'){
+      var el = document.getElementById('s-'+k);
+      var cb = el.querySelector('input[type=checkbox]');
+      var on = svc.required ? true : (cb && cb.checked);
+      if(on) cost += svc.variable ? getAdMgmt() : svc.price;
+    }
+  });
+  if(cost===0) cost=1;
+  var roi = Math.round(((rev - cost) / cost) * 100);
+  document.getElementById('rout').textContent = '$'+rev.toLocaleString();
+  document.getElementById('iout').textContent = roi > 0 ? roi.toLocaleString()+'%' : '0%';
+}
+
+function updateTotals(){
+  var otTotal=0, moTotal=0, otRows='', moRows='';
+  Object.keys(services).forEach(function(k){
+    var svc = services[k];
+    var el = document.getElementById('s-'+k);
+    var cb = el.querySelector('input[type=checkbox]');
+    var on = svc.required ? true : (cb && cb.checked);
+    if(!svc.required) el.classList.toggle('off', !on);
+    if(!on) return;
+    var price = svc.variable ? getAdMgmt() : svc.price;
+    if(svc.type==='ot'){
+      otTotal += price;
+      otRows += '<div class="brow"><span>'+svc.label+'</span><span>$'+price.toLocaleString()+'</span></div>';
+    } else {
+      moTotal += price;
+      moRows += '<div class="brow"><span>'+svc.label+'</span><span>$'+price.toLocaleString()+(svc.variable?'+':'')+'</span></div>';
+    }
+  });
+  var adsOn = document.getElementById('s-ads').querySelector('input').checked;
+  document.getElementById('ot-total').textContent = '$'+otTotal.toLocaleString();
+  document.getElementById('mo-total').innerHTML = '$'+moTotal.toLocaleString()+(adsOn?'<span style="font-size:16px;color:#9CA3AF;">+</span>':'');
+  document.getElementById('ot-breakdown').innerHTML = otRows || '<div class="brow" style="color:#9CA3AF;"><span>No one-time services selected</span><span>$0</span></div>';
+  document.getElementById('mo-breakdown').innerHTML = moRows || '<div class="brow" style="color:#9CA3AF;"><span>No monthly services selected</span><span>$0</span></div>';
+  document.getElementById('calc-cost').textContent = '$'+moTotal.toLocaleString();
+  calcROI();
+}
+
+function updAd(){
+  var s = parseInt(document.getElementById('adspend').value);
+  var m = Math.round(200 + s * 0.15);
+  var t = s + m;
+  document.getElementById('sout').textContent = '$'+s.toLocaleString();
+  document.getElementById('sdisp').textContent = '$'+s.toLocaleString();
+  document.getElementById('mdisp').textContent = '$'+m.toLocaleString();
+  document.getElementById('tdisp').textContent = '$'+t.toLocaleString();
+  document.getElementById('adprice').textContent = '$'+m.toLocaleString();
+  services['ads'].price = m;
+  updateTotals();
+}
+
+updAd();
+updateTotals();
+calcROI();
+</script>
+</body>
+</html>
